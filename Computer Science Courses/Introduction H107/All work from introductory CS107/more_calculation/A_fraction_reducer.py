@@ -224,6 +224,19 @@ except:
 
 
 
+def cryp_gcd(larger,smaller):
+    #assumes both are positive ints
+    ret = []
+    remainder = larger %smaller
+    q = larger/smaller
+    ret.append([larger, (q,smaller), remainder])
+    if remainder ==0:
+        return ret
+    else:
+        return ret + cryp_gcd(smaller, remainder)
+    
+    
+
 def GCD(x,y):
     
     precondition(is_integer(x) and is_integer(y)) #either can be zero, this is a valid question!

@@ -508,7 +508,6 @@ class Board:
         
 
 #method 10, all_jumps
-
     def all_jumps(self, spot):
         """
         returns list [[(row, col),(row, col)] ..., [(row, col), (row, col)]] of all legal jumps of piece in spot (row, col)
