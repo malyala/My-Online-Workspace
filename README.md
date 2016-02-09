@@ -1,4 +1,4 @@
-# Basic-Python
+# Python
 This is my repository for projects in python. 
 
 In here I include:
