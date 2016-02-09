@@ -9,6 +9,6 @@ In here I include:
 
 3. Random scripts (ranging from easy projects to very hard, perhaps unfinished ones)  I wrote because of something that peaked my interest.
 
-3. A few select finished projects that required significant work.
+3. A few select finished projects (my portfolio) that required significant work.
 
 
