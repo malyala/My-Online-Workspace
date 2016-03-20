@@ -31,6 +31,28 @@ def bs(e,lis, start, end):
 		return bs(e,lis, mid+1, end)
 
 
+def BubbleSort(lis):
+	while not is_sorted(lis):
+		for i in range(len(lis)-1):
+			if lis[i]>lis[i+1]:
+				lis.insert(i,lis[i+1])
+				lis.pop(i+2)
+	return lis
+
+
+
+
+
+
+
+	
+
+
+
+
+
+
+
 
 
 

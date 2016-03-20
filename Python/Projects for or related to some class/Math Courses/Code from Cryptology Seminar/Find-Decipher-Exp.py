@@ -64,7 +64,7 @@ def cryp_gcd(larger,smaller):
     #assumes both are positive ints
     ret = []
     remainder = larger %smaller
-    q = larger/smaller
+    q = larger//smaller
     ret.append([larger, q, smaller, remainder])
     if remainder ==0:
         return ret
@@ -100,21 +100,11 @@ def eq_cut(s):
 
 
 
-        
+p = 5367465367660000073911700307252144719636497576877121895147604686249181825768993927896206352136521549507560123637295420699529762752986355171590769
 
+q = 767576499999999955899116853584591696420576524108966866866691380153285627290688858024950359656518136465157415484845457591
 
-            
-
-
-
-
-
-
-
-
-
-
-
+print(int(find_d_for(2**16 +1, p,q )))
 
 
 
