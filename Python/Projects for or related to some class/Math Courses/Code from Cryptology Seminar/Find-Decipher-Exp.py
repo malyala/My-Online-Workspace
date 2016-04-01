@@ -6,6 +6,9 @@ simply call the function find_diap_for(e,p,q)
 To find d, call find_d_for(e,p,q)
 
 
+to solve diophantine equation Ax + By = 1, use diap(A,B)
+
+
 
 
 
@@ -23,6 +26,12 @@ def find_d_for(e,p,q):
     else:
         d_0 = eq[3]
     return least_positive(d_0, (p-1)*(q-1))
+
+def diap(A,B):
+    return diap_solve(  g(max(A,B)  , min(A,B))  )
+
+
+    
 
 def least_positive(num, delta):
     if num<0:
