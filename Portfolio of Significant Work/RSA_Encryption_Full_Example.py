@@ -35,7 +35,6 @@ EncipherExp = 2**16 +1
 
 
 def encrypt(string):
-    
     return [pow(string_to_num(i), EncipherExp, Modulus) for i in split_len(string, 132)]
 
 
