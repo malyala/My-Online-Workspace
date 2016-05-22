@@ -24,7 +24,18 @@ True
 'NULL'
 >>> alp = Mega_tt()
 >>> print(alp)
-
+   |   |   :   |   |   :   |   |   
+   |   |   :   |   |   :   |   |   
+   |   |   :   |   |   :   |   |   
+---------------------------------
+   |   |   :   |   |   :   |   |   
+   |   |   :   |   |   :   |   |   
+   |   |   :   |   |   :   |   |   
+---------------------------------
+   |   |   :   |   |   :   |   |   
+   |   |   :   |   |   :   |   |   
+   |   |   :   |   |   :   |   |   
+<BLANKLINE>
 
 """
 
@@ -86,12 +97,14 @@ class Mega_tt:
         Last_move is (row, col) or -1 if NA
         to_pos is ((row,col) -- of outer, (row,col) -within quadrant) 
         """
-        if last_move != -1:
+        if last_move != -1: # -1 is first move
             Quadrant = self[last_move[0]][last_move[1]] 
-            if not Quadrant.Is_game_over() and to_pos[0] != last_move: return False
-        else: Quadrant = self[to_pos[0][0]][to_pos[0][1]]
-        if not Quadrant.Is_legal_move(to_pos[1]): return False
-        return True
+            if (not Quadrant.Is_game_over()) and to_pos[0] != last_move: return False
+            elif Quadrant.Is_game_over() and to_pos[0] == last_move:
+                return False
+            else: Quadrant = self[to_pos[0][0]][to_pos[0][1]]
+        else:return True
+        return Quadrant.Is_legal_move(to_pos[1])
     
     def move(self, player, to_pos):
         # to_pos is ((row,col), (row,col)) with outer then inner descibed
@@ -136,7 +149,7 @@ class Mega_tt:
                 r += 1
             r_print = r_print[:-2]
             ret += r_print + '\n'
-            if i%3 == 0 and i != 9: ret += "-------------------------------------\n"
+            if i%3 == 0 and i != 9: ret += "---------------------------------\n"
             i += 1
         return ret
 
@@ -197,7 +210,7 @@ def game():
     if outcome == 1: print("\n\nPlayer 1 won!")
     elif outcome == 2: print("\n\nPlayer 2 won!")
     else: print("\n\nDraw!")
-
+    print(board)
 
 def _test():
     import doctest
@@ -209,8 +222,6 @@ def _test():
 
 # tests may or may not be chosen by the user interface...
 if __name__ == "__main__": _test()
-
-
 
 
 
