@@ -59,8 +59,7 @@ def compiler(lexed, prefix = "", First_time = False):
 		elif typ == ".":
 			out.write(prefix +"print(a.get())\n")
 		elif typ == ",":
-			out.write(prefix +"inp = input() #must be an integer\n" + \
-			"a.assign(int(inp))\n")
+			out.write(prefix +"inp = input() #must be an integer\na.assign(int(inp))\n")
 		elif typ == "[":
 			out.write(prefix + "while a.get() != 0:\n")
 			out.close()
@@ -77,6 +76,4 @@ def compiler(lexed, prefix = "", First_time = False):
 def the_compiler(path):
 	compiler(lexer(path), First_time = True)
 	return None
-
-
 
