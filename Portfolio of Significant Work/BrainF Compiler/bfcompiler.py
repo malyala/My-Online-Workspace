@@ -1,4 +1,5 @@
 """
+This contains a compiler for the language brainf into python.
 To use, put the raw brainf file inside this folder (so that the import works)
 
 Then run the_compiler(path/to/raw/brainf)
