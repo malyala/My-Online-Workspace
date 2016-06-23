@@ -62,13 +62,9 @@ def compiler(lexed, prefix = "", First_time = False):
 			out.write(prefix +"inp = input() #must be an integer\na.assign(int(inp))\n")
 		elif typ == "[":
 			out.write(prefix + "while a.get() != 0:\n")
-			out.close()
-			compiler(lexed[index + 1:], prefix +"\t")
-			return None
+			prefix += "\t"
 		elif typ == "]":
-			out.close()
-			compiler(lexed[index +1:], prefix[:-1])
-			return None
+			prefix = prefix[:-1]
 		index += 1
 	out.close()
 	return None
