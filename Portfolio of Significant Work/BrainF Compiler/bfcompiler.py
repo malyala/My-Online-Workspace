@@ -20,6 +20,9 @@ def lexer(bf_file):
     previous_char = content[0]
     char_count = 0
     for char in content:
+        if char == "[" or char == "]":
+			ret.append((char, 1))
+			continue
         if index == len(content):
             if previous_char == char:
 				char_count += 1
