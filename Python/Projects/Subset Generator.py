@@ -17,15 +17,9 @@ ABC
 
  
 """
+import string
 
-
-def lstr(l):
-    ret =""
-    for i in l:
-        ret += i
-    return ret
-
-class Loop():
+class LetterLoop():
     def __init__(self):
         self.l=[]
     def push(self,item):
@@ -40,18 +34,17 @@ class Loop():
     def __getslice__(self,i,j):
         assert(type(i)==int and type(j)==int and j>=i)
         if j<len(self)+1:
-            return lstr(self.l[i:j])
+            return string.join(self.l[i:j], "")
         else:
-            return lstr(self.l[i::]+self.l[0:j%len(self)])
+            return string.join(self.l[i::] + self.l[0:j%len(self)], "")
 
 
 def subsets(S):
     """
-    returns all subsets ofstringS (something like"ABC")
-    as a list ["A","B","C","AB",...]
+    yields all subsets ofstring S  
     """
 #1:make a loop
-    Q= Loop()
+    Q= LetterLoop()
     for letter in S:
         Q.push(letter)
 #yield first an empty subset, then go through different sizes of sets

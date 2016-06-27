@@ -87,9 +87,7 @@ def GraphUnitLoops(graph, current_node, path, set_of_loops):
     called path of the nodes already visited (list of node objects)
     returns a list of loop objects for all given loops in a path
 
-    """
-
-    
+    """    
     for nbr in graph[current_node]:
         #print("nbr of", current_node, "is", nbr) 
         for visited in range(len(path)):
