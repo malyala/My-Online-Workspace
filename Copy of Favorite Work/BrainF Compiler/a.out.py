@@ -1,9 +1,9 @@
 from inflist import *
 a = InfiniteList()
-inp = input() #must be an integer
+inp = input() #must be a nonneg integer
 a.assign(int(inp))
 a.move_right(1)
-inp = input() #must be an integer
+inp = input() #must be a nonneg integer
 a.assign(int(inp))
 a.move_left(1)
 while a.get() != 0:

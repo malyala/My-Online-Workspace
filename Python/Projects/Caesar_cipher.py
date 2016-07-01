@@ -29,3 +29,4 @@ def alphabet_dict(alphabet, shift_right,ret = dict()):
 
 def decrypt(cipher, shift_right):
     return encrypt(cipher, 26-shift_right)
+
