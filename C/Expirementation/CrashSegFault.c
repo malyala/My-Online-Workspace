@@ -4,10 +4,8 @@ int main(){
     int *x;
     
     while(1){
-        int *y = x;
-        y += 100000000;
-        x = (int *) 0;
-        x = y;
+        *x = 0;
+        x--;
     }
     
     return 0;
