@@ -1,12 +1,13 @@
 #include <stdio.h>
+#include <stdlib.h>
 
 int main(){
     int *x;
-    
-    while(1){
+    x = malloc(sizeof(int));
+    /*while(1){
         *x = 0;
-        x--;
-    }
+        x++;
+    }*/
     
     return 0;
 }
