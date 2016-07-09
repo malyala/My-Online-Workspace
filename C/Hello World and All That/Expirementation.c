@@ -3,8 +3,9 @@
 int main(){
     char astr[5];
     printf("give me you name: ");
-    scanf("%s", &astr);
+    scanf("%4s", astr); // see http://stackoverflow.com/questions/16570716/c-warning-format-s-expects-type-char-but-argument-2-has-type-char
     printf("you gave me %s\n", astr);
+    puts("Testing\n\n");
     return 0;
 }
 /*
