@@ -2,13 +2,14 @@
 
 int main(){
     float inp;
-    puts("give me a float: ");
+    printf("give me a float: ");
     scanf("%f", &inp);
+    float given = inp;
     if (inp >= 0){
         inp += 0.5;    
     } 
     else{
         inp -= 0.5;
     }
-    printf("Rounded: %d\n",(int) inp);
+    printf("Rounded %f to %d\n", given, (int) inp);
 }

@@ -1,5 +1,5 @@
 #include <stdio.h>
-#define SIZE 100
+#define SIZE 100 // macro , so when processed, all SIZE below replaced with 100
 
 
 int main() {
@@ -7,19 +7,23 @@ int main() {
     // base 8, start with 0, with hex, start with 0x
     char c = 'a';
     long n = 123456L;
+    short k = 2;
+    wchar_t wide = "k";
     float x = 1.0F;
     double y = 2.3;
     long double z = 4.5L;
     char string[] = "hello";
-    
+    char stupidstring[] = {"a", "b", "c", "\0"};    
     char specialchars[] = "\n \t \\ \b \r \f \123 \0";
     // newline, tab, backslash, backspace, .. last is all zeros, important 
     // for string to terminate
     
     //constants:
     const int i = 7; // must be given a value here
+    // read only
     // you cannot use these as array dimensions in C, but can in c++
-    
+   
+
     //preprocessing directive
     // the SIZE is replaced at preprocessing, 
     printf("SizeL %d\n", SIZE);
