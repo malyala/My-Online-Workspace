@@ -61,10 +61,12 @@ int main()
     array.value = 2;
     array.next = malloc(sizeof(array.next));
     (*array.next).value = 3;
+    array.next->value=4; //all that preceedes the arrow is treated as a pointer
+    // we can subtitute as [stuff]->abcd as (*stuff).abcd
 
     printf("Linked list: %d, %d\n",
     array.value,
-    (*array.next).value);
+    array.next->value);
 
 
 }
