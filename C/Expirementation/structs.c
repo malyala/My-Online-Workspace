@@ -59,7 +59,7 @@ int main()
 
     Node array;
     array.value = 2;
-    array.next = malloc(sizeof(array.next));
+    array.next = malloc(sizeof(Node));
     (*array.next).value = 3;
     array.next->value=4; //all that preceedes the arrow is treated as a pointer
     // we can subtitute as [stuff]->abcd as (*stuff).abcd
