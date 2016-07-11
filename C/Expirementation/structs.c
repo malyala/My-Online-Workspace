@@ -44,8 +44,8 @@ int main()
 
     struct Person Copy;
     puts("We do: \
-    struct Person Copy;\
-    Copy = Divesh;");
+    \nstruct Person Copy;\
+    \nCopy = Divesh;");
     Copy = Divesh;
     puts("\nCopy of Divesh Person:");
     printperson(Copy);
