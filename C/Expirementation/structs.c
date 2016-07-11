@@ -5,52 +5,69 @@ struct Person
 {
     char *name;
     int age;
-    int college_year;
+    int year;
 
 };
 
+
+struct LinkedList
+{
+    int value;
+    struct LinkedList *next;
+};
+
+typedef struct LinkedList Node;
+
 void printperson(struct Person aperson)
 {
-    printf("Random guy information %s %d %d\n",
+    printf("\nPerson's information:\n%s age: %d year: %d\n",
     aperson.name,
     aperson.age,
-    aperson.college_year);
+    aperson.year);
 
 }
 
 int main()
 {
     
-    struct Person Divesh, Bob;
     struct Person *Rando;
-
-    Bob = {"Bob Mcphereson", 22, 3};
-    Divesh = Bob;
-    puts("Divesh:");
-    printperson(Divesh);
-    puts("Bob:");
-    printperson(Bob);
-    printf("Divesh Pointer: %p\n",
-    &Divesh);
-    printf("Bob Pointer: %p\n",
-    &Bob);
-
-
+    
     Rando = malloc(sizeof(struct Person));
-    *Rando = {"Random Guy", 35, 2};
-    printperson(Rando);
+    (*Rando).name = "Random Guy";
+    (*Rando).age = 35;
+    (*Rando).year= 2;
+    printperson(*Rando);
+
+    struct Person Divesh;
+    Divesh = (struct Person) {"Divesh", 19, 2};
+    printperson(Divesh);
+
+    struct Person Copy;
+    puts("We do: \
+    struct Person Copy;\
+    Copy = Divesh;");
+    Copy = Divesh;
+    puts("\nCopy of Divesh Person:");
+    printperson(Copy);
+    printf("\nInvolved Pointers:\nDivesh: %ld\nCopy: %ld\n\n",
+    &Divesh,
+    &Copy);
+    printf("And, &Divesh.age: %ld\n&Copy.age %ld\n",
+    &Divesh.age,
+    &Copy.age);
+   
+
+    Node array;
+    array.value = 2;
+    array.next = malloc(sizeof(array.next));
+    (*array.next).value = 3;
+
+    printf("Linked list: %d, %d\n",
+    array.value,
+    (*array.next).value);
 
 
 }
-
-
-
-
-
-
-
-
-
 
 
 
