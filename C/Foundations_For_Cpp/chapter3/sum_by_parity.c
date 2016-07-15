@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <stdlib.h>
 int main()
 {
     /*
@@ -10,6 +11,7 @@ int main()
     int AmtOfInts, temp;
     printf("How many integers would you like to give me?");
     scanf("%d", &AmtOfInts);
+    AmtOfInts = abs(AmtOfInts); // I don't care if the user gives a negative
     for (AmtOfInts; AmtOfInts > 0; AmtOfInts--)
     {
         printf("Give me an integer: ");
@@ -23,7 +25,8 @@ int main()
         }
     }
 
-    printf("SumOfEvens = %ld and SumOfOdds = %ld\n", SumOfEvens,\
+    printf("SumOfEvens = %ld and SumOfOdds = %ld\n",
+    SumOfEvens,
     SumOfOdds);
     return 0;
 }
