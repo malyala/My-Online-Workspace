@@ -34,7 +34,7 @@ typedef struct Stack Stack;
 
     // Stack Interface:
 Stack *NewStack(void);
-void StackAdd(Stack *, int);
-int StackPop(Stack *);
-int StackTop(Stack *);
+void StackAdd(Stack *, void *);
+void * StackPop(Stack *);
+void * StackTop(Stack *);
 int IsError(Stack *);
