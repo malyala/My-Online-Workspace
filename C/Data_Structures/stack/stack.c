@@ -1,10 +1,10 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "stack.h"
-#define ERROR -32768
+
 struct Node
 {
-    int value;
+    void *value;
     struct Node *next;
     struct Node *previous; //set to NULL for start of stack
 };
@@ -26,7 +26,7 @@ Stack * NewStack(void)
     return retStack;
 }
 
-void StackAdd(Stack * stk, int val)
+void StackAdd(Stack * stk, void *val)
 {
     if (stk->current_node == NULL)
     {
@@ -46,13 +46,13 @@ void StackAdd(Stack * stk, int val)
     stk->length= stk->length + 1;
 }
 
-int StackPop(Stack *stk)
+void * StackPop(Stack *stk)
 {
     if (stk->length > 0)
     {
-        int ret = stk->current_node->value;
+        void *ret = stk->current_node->value;
         DoubleLinkList *prev = stk->current_node->previous;
-        free(stk->current_node); //works since value is an int
+        free(stk->current_node);
         stk->current_node = prev;
         if (prev != NULL)
             stk->current_node->next = NULL;
@@ -62,17 +62,17 @@ int StackPop(Stack *stk)
     }else
     {
         stk->error = 1;
-        return ERROR;
+        return NULL;
     }
 
 }
 
-int StackTop(Stack *stk)
+void * StackTop(Stack *stk)
 {
     if (stk->length > 0)
         return stk->current_node->value;
     else
-        return ERROR; //this does not cause an error, only bad pop's cause errors
+        return NULL; //this does not cause an error, only bad pop's cause errors
 }
 
 int IsError(Stack *stk)
