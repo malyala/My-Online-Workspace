@@ -7,8 +7,6 @@
 
 // ask heman about stupid io issues in C later
 
-
-
 typedef struct employee
 {
     char last[NAMESIZE];
@@ -40,17 +38,12 @@ int addEmployee(void)
 
 int printEmployee(int i)
 {
-    if (i >= NumEmployees)
+    if (i < 0 || i >= NumEmployees)
         return -1;
     puts(Workers[i].first);
     return i;
 }
 
-
 int numEmployees(void)
-{
-    return NumEmployees;
-}
-
-
+{return NumEmployees;}
 
