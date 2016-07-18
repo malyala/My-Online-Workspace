@@ -22,16 +22,13 @@ static employee Workers[MAX_EMP];
 
 int addEmployee(void)
 {
-    char c;
-    while((c = getchar()) != '\n' && c != EOF)
-               /* discard the character */;
  
     if (NumEmployees == MAX_EMP)
         return -1;
     printf("First Name: ");
-    fgets(Workers[NumEmployees].first, NAMESIZE - 1, stdin); 
+    scanf("%s", Workers[NumEmployees].first); 
     printf("Last Name: ");
-    fgets(Workers[NumEmployees].last, NAMESIZE - 1, stdin); 
+    scanf("%s",Workers[NumEmployees].last); 
     printf("Salary: ");
     scanf("%d", &(Workers[NumEmployees].salary)); 
     NumEmployees += 1;
