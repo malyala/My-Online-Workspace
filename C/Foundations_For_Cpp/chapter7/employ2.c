@@ -5,13 +5,13 @@
 #include "employ2.h"
 
 
-struct Employee* createEmployee(char* first, char* last, char* title, int sal)
+struct Employee* createEmployee(char *first, char *last, char *title, int sal)
 {
     Employee *toRet;
     toRet = malloc(sizeof(Employee));
-    toRet->first= *first;
-    toRet->last= *last;
-    toRet->title= *title;
+    *(toRet->first) = first;
+    toRet->last= last;
+    toRet->title= title;
     toRet->salary= sal;
     return toRet;
 }
