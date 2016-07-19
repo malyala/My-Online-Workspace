@@ -2,17 +2,20 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include "employ2.h"
+
+
 
 
 struct Employee* createEmployee(char *first, char *last, char *title, int sal)
 {
     Employee *toRet;
-    toRet = malloc(sizeof(Employee));
-    *(toRet->first) = first;
-    toRet->last= last;
-    toRet->title= title;
-    toRet->salary= sal;
+    toRet = (Employee *) malloc(sizeof(Employee));
+    memcpy(toRet->first, first, sizeof(first));
+    memcpy(toRet->last, last, sizeof(last));
+    memcpy(toRet->title, title, sizeof(title));
+    toRet->salary = sal;
     return toRet;
 }
 
@@ -35,15 +38,15 @@ int getSalary(struct Employee* emp)
 }
 void setLast(struct Employee* emp, char* last)
 {
-    emp->last = last;
+    memcpy(emp->last, last, sizeof(last));
 }
 void setFirst(struct Employee* emp, char* first)
 {
-    emp->first=first;
+    memcpy(emp->first, first, sizeof(first));
 }
 void setTitle(struct Employee* emp, char* title)
 {
-    emp->title = title;
+    memcpy(emp->title, title, sizeof(title));
 }
 void setSalary(struct Employee* emp, int sal)
 {
