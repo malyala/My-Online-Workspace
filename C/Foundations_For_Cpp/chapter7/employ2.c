@@ -12,9 +12,9 @@ struct Employee* createEmployee(char *first, char *last, char *title, int sal)
 {
     Employee *toRet;
     toRet = (Employee *) malloc(sizeof(Employee));
-    memcpy(toRet->first, first, sizeof(first));
-    memcpy(toRet->last, last, sizeof(last));
-    memcpy(toRet->title, title, sizeof(title));
+    strcpy(toRet->first, first);
+    strcpy(toRet->last, last);
+    strcpy(toRet->title, title);
     toRet->salary = sal;
     return toRet;
 }
@@ -38,15 +38,15 @@ int getSalary(struct Employee* emp)
 }
 void setLast(struct Employee* emp, char* last)
 {
-    memcpy(emp->last, last, sizeof(last));
+    strcpy(emp->last, last);
 }
 void setFirst(struct Employee* emp, char* first)
 {
-    memcpy(emp->first, first, sizeof(first));
+    strcpy(emp->first, first);
 }
 void setTitle(struct Employee* emp, char* title)
 {
-    memcpy(emp->title, title, sizeof(title));
+    strcpy(emp->title, title);
 }
 void setSalary(struct Employee* emp, int sal)
 {
@@ -57,7 +57,7 @@ void printEmployee(struct Employee* emp)
     printf("Name: %s, %s\n",
     emp->last,
     emp->first);
-    printf("Title %s\n", emp->title);
+    printf("Title: %s\n", emp->title);
     printf("Salary: %d", emp->salary);
 }
 
