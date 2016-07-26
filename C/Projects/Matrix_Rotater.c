@@ -5,7 +5,8 @@ I also do it in place (So I modify the original matrix).
 The essential algorithm is doing a circular swap from cell (row i, col j) to cell (row j, col N -i -1)
 and from that cell to the next until we reach the initial cell (memory efficency).
 
-We do this for the top left quarter. Or, for cells with rows 0 <= i < n//2 and cols 0 <= j < N - (2*i) - 1.
+We do this for cells in the top left quarter.
+Or, for cells with row i, col j s.t. 0 <= i,j < ceiling(N/2)
 */
 
 #include <stdio.h>
@@ -62,9 +63,10 @@ void circular_swap(int arr_size, int **Arr, twople start, int hold, twople curre
 
 void matrix_rotate(int size, int **arr)
 {
+    size = (size % 2) ? size + 1 : size;
     for (int i = 0; i < (size / 2); ++i)
     {
-        for (int j = 0; j < (size - (2* i) -1); ++j)
+        for (int j = 0; j < (size / 2); ++j)
         {
             twople start = {i, j};
             int hold = arr[i][j];
