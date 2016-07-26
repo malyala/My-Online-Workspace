@@ -25,8 +25,10 @@ int main()
     z ="hello";
     printf("Z is %s\n",z);
     printf("Sizeof(z): %d\n", sizeof(z));
-    
-
+   
+    int q = 7;
+    char *whatever = "whatever";
+    printf("%c", q );
 
     return 0;
 }
