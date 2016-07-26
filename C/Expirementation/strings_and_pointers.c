@@ -1,7 +1,6 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-
 int main()
 {
     char x[4]= "abc";
@@ -26,9 +25,8 @@ int main()
     printf("Z is %s\n",z);
     printf("Sizeof(z): %d\n", sizeof(z));
    
-    int q = 7;
     char *whatever = "whatever";
-    printf("%c", q );
+    printf("%c", whatever[0]);
 
     return 0;
 }

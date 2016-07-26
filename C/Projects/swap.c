@@ -7,13 +7,14 @@
 void swap(void *a,void *b, size_t size){
     char *temp;
     temp = malloc(size);
-    (*temp) = *((char *) a);
+    memcpy(temp, a, size);
     memcpy(a, b, size);
     memcpy(b, temp, size);
+	free(temp);
 }
 
 int main(){
-    int a = 3, b = 4;
+    int a = 300000, b = 999999999;
     swap(&a,&b, sizeof(int));
     printf("a is %d and b is %d \n", a, b);
     return 0;
