@@ -6,12 +6,13 @@
 
 void swap(void *a,void *b, size_t size){
     char *temp;
-    temp = malloc(size);
+    temp = (char *) malloc(size);
     memcpy(temp, a, size);
     memcpy(a, b, size);
     memcpy(b, temp, size);
 	free(temp);
 }
+/* TESTING
 
 int main(){
     int a = 300000, b = 999999999;
@@ -19,3 +20,7 @@ int main(){
     printf("a is %d and b is %d \n", a, b);
     return 0;
 }
+*/
+
+
+
