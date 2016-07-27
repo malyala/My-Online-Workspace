@@ -3,6 +3,7 @@ In this module I create a generator to return an interable of
 all the subsets of a string of letters.
 
  EX:
+ (print_g simply calls generator.next() until it is exahusted)
 
 >>> print_g(subsets("ABC"))
  

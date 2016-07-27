@@ -289,28 +289,7 @@ def collect_legal_colorings(states, colors, borders):
        
        
         
-    elif MODE=='test samples' or MODE=='answer key':
-        try:
-            """ Call all sample answers, see what answers we get ... """
-            from sample_answers.cs105.graph_coloring.enumeration_samples import collect_legal_colorings_samples_all
-            from sample_answers.cs105.graph_coloring.enumeration_samples import collect_legal_colorings_samples_correct
-            # set the following to only use the correct one!
-            enumeration_samples_just_do_the_right_ones = (MODE=='answer key')
-        
-            if enumeration_samples_just_do_the_right_ones:
-                answer = collect_legal_colorings_samples_correct(states, colors, borders)
-            else:
-                answer = collect_legal_colorings_samples_all(states, colors, borders)
-        except:
-            print "Hmmmm... can't find sample answers. This shouldn't happen on the CS teaching lab computers"
-            print " If you are running this program on another computer, you'll have to wait to check"
-            print " your test suite against the sample answers when you're back in the lab."
-            print " (Remember to Team->Commit on your computer and Team->Update in the lab.)"
-            answer = ""
-    else:
-        answer = 'ERROR: You need to set MODE correctly in graph_coloring.py'
-
-    # Leave the next line alone, too, to ensure proper printing in the GUI
+     # Leave the next line alone, too, to ensure proper printing in the GUI
     we_are_doing_coloring_enumeration(False) # done with this enumeration
 
     if want_to_print_stuff:

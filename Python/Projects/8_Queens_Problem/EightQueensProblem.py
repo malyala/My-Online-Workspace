@@ -1,3 +1,10 @@
+"""
+Place 8 queens on a chessboard so no two are checking each other.
+
+"""
+
+
+
 def check(point1, point2):
     return (point1[0] == point2[0]) or \
     point1[1] == point2[1] or \
@@ -10,15 +17,11 @@ def options(currentpoint, occupied):
             ret += [(currentpoint[0]+1, i)]
     return ret
     
-    
-
-
-
 
 def queens(currentpoint, occupied, g_options = [], n=8):
     if len(occupied) == n:
         # to be delteed:
-        print g_options
+        #print g_options
         return occupied
     else:
         opt = options(currentpoint, occupied)
@@ -38,9 +41,9 @@ def queens(currentpoint, occupied, g_options = [], n=8):
                                 
             return queens(currentpoint, occupied, g_options, n)
 
-        
-                
-                        
+
+print(queens((0,0), []))
+                                        
                                         
 def FAKEallsolutions():
     ret = []
@@ -48,7 +51,6 @@ def FAKEallsolutions():
         ret += ['another solution: '] + [queens((1,i), [(1,i)])]
     print ret
     
-FAKEallsolutions()
         
         
         

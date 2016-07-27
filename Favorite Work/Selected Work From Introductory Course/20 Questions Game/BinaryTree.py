@@ -55,22 +55,8 @@ False
 
 
 
-
 """
-# make Python look in the right place for logic.py, or complain if it doesn't
-#from aifc import data
-#from plistlib import Data
-#try:
-#    import sys
-#    sys.path.append('/home/courses/python')
-#    from logic import *
-#except:
-#    print "Can't find logic.py; if this happens in the CS teaching lab, tell your instructor"
-#    print "   If you are using a different computer, add logic.py to your project"
-#    print "   (You can download logic.py from http://www.cs.haverford.edu/resources/software/logic.py)"
-#    sys.exit(1)
 
-# Put BinaryTree class here
 
 from copy import deepcopy
 
@@ -110,7 +96,6 @@ class BinaryTree:
         return ret
     
                                                     
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            
 #Accessors:        
         
     def get_left(self):return self.left
@@ -163,50 +148,7 @@ class BinaryTree:
 
    
     
-"""
-Here are the axioms for
-get_left, get_right, get_val, is_leaf, __eq__ and 
-__repr__:
 
-(I think axioms just use all the constuctors on each 
-method to define how it would work for any possible
-binary tree. This is what I set out to define below.)
-Note: we can substitute with the pure functional constuctors as follows
-    a = BinaryTree(x)
-    a.add_left(y)
-    a == BinaryTree(x).pure_addleft(y)
-replace left with right for the other pure func. constructor
-
-The axioms:
-
-1.get_left
-    BinaryTree(a).get_left() == None
-    B.pure_addleft(x).get_left() == BinaryTree(x)
-    B.pure_addright(x).get_left() == B.get_left()
-
-2.get_right
-    BinaryTree(a).get_right() == None
-    B.pure_addleft(x).get_right() == B.get_right()
-    B.pure_addright(x).get_right() == BinaryTree(x)
-
-3.get_val
-    BinaryTree(x).get_val() == x 
-    B.pure_addleft(y).get_val() == B.get_val()
-    B.pure_addright(z).get_val() == B.get_val()
-
-4.is_leaf
-    BinaryTree(x).is_leaf() == True
-    B.pure_addleft(y).is_leaf() == False   (iff y != None)
-    B.pure_addright(z).is_leaf() == False  (iff y != None)
-
-5.__eq__ 
-#two nodes have the same values and have subtrees with the 
-#same values in the same position iff the two nodes are equal
-
-6. __repr__
-#It prints a {} for each leaf and (parent_value, repr(left child), repr(right child))
-   
-"""   
     
     
 
