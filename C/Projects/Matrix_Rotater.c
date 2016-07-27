@@ -95,7 +95,8 @@ int main()
     matrix_rotate(Matrix_dimension, matrix);
     puts("This is your changed matrix:");
     matrix_print(Matrix_dimension, matrix);
-    return 0;
+    // I don't care about freeing the memory since the program ends now.
+	return 0;
 }
 
 //Testing

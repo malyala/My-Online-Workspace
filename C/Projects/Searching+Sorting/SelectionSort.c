@@ -35,8 +35,9 @@ int main(){
 	puts("Array before sort:");
 	printIntArray(arr, 4);
 	SelectionSort(arr, 4, sizeof(int), lt_intArray);
-	puts("Array after sort:");
+	puts("\nArray after sort:");
 	printIntArray(arr, 4);
+	free(arr);
 	return 0;
 }
 
