@@ -49,9 +49,9 @@ void circular_swap(int arr_size, int **Arr, twople start, int hold, twople curre
 	for (int i=0; i<4; ++i){   
 		twople next = transfer(current, arr_size);
 		int temp = Arr[next.tup[0]][next.tup[1]];
-        Arr[next.tup[0]][next.tup[1]] = hold;
-        current = next;
-        hold = temp;
+		Arr[next.tup[0]][next.tup[1]] = hold;
+		current = next;
+		hold = temp;
     }
 }
 
