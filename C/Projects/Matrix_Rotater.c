@@ -14,12 +14,9 @@ Or, for cells with row i, col j s.t. 0 <= i,j < ceiling(N/2)
 
 static int Matrix_dimension;
 
-void matrix_print(int size, int **arr)
-{
-    for (int i = 0; i < size; ++i)
-    {
-        for (int j = 0; j < size; ++j)
-        {
+void matrix_print(int size, int **arr){
+    for (int i = 0; i < size; ++i){
+        for (int j = 0; j < size; ++j){
             printf("%d ", arr[i][j]);
         }
         putchar('\n');
@@ -49,11 +46,9 @@ void circular_swap(int arr_size, int **Arr, twople start, int hold, twople curre
        value will be moved to the next cell. The first call has start and current as the same cell. */
     // matrix_print(arr_size, Arr); //Debugging.
 	twople next = transfer(current, arr_size);
-    if (tuple_equal(next ,start))
-    {
+    if (tuple_equal(next ,start)){
         Arr[start.tup[0]][start.tup[1]] = hold;
-    } else
-    {
+    }else{
         //invariant: hold is the value to be put in the next cell
         int temp = Arr[next.tup[0]][next.tup[1]];
         Arr[next.tup[0]][next.tup[1]] = hold;
