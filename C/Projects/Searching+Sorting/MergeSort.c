@@ -17,7 +17,7 @@ For now, memory efficency is not considered. This is a project to be returned to
 #include <string.h>
 #include "../swap.c" // probably repeats some libraries, fix this later
 void printIntArr(int *, int);
-void Merge (void *, void *, int, int, size_t, int(*fn)(void *, void*));
+void * Merge (void *, void *, int, int, size_t, int(*fn)(void *, void*));
 
 void * MergeSort(void *arr, int len, size_t elem_sz, int (*fn)(void *, void *)){
 	void *ret = malloc( len * elem_sz );
@@ -29,16 +29,15 @@ void * MergeSort(void *arr, int len, size_t elem_sz, int (*fn)(void *, void *)){
 		return arr;
 	} else {
 		int split = len / 2;
-		void *first_half = MergeSort(arr, split, elem_sz, fn);
-		void *second_half = MergeSort((arr + (split * elem_sz)),len - split, elem_sz, fn);
+		void *first_half = malloc(split * elem_sz);
+		void *second_half = malloc((len - split) * elem_sz);
+		first_half = MergeSort(arr, split, elem_sz, fn);
+		second_half = MergeSort((arr + (split * elem_sz)),len - split, elem_sz, fn);
 		ret = Merge(first_half, second_half,split, len - split, elem_sz, fn);
 		free(first_half);
 		free(second_half);
 		return ret; // whatever calls this should eventually free ret
 	}
-
-
-//call from merge should be freed
 }
 
 void * Merge (void *arr1, void *arr2, int len1, int len2, size_t size, int (*fn)(void *, void *)){
@@ -72,11 +71,19 @@ void printIntArr(int *arr, int len){
 }
 
 int main(){
+	/* Testing Merge
 	int *a = (int *) malloc(2*sizeof(int));
 	int *b = (int *) malloc(4 * sizeof(int));
 	a[0] = 1; a[1] = 6; b[0] = 2; b[1] = 3; b[2]=8; b[3]=12;
 	int *merge = (int *) Merge(a, b, 2, 4, sizeof(int), IntComp);
 	printIntArr(merge, 6);
+	*/
+
+	int *test = (int *) malloc(8 * sizeof(int));
+	test[0]=12;test[1]=12;test[2]=25;test[3]=3;test[4]=1;test[5]=4;test[6]=2;test[7]=6;
+	int *result = (int *) malloc (8 * sizeof(int));
+	result = (int *) MergeSort(test, 8, sizeof(int), IntComp);
+	printIntArr(result, 8);
 	return 0;
 }
 
