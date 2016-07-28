@@ -27,11 +27,11 @@ void * MergeSort(void *arr, int len, size_t elem_sz, compares fn){
 		memcpy(ret, arr, 2*elem_sz);
 		if (!fn(arr, arr + elem_sz))
 			swap(ret, ret + elem_sz, elem_sz);
-		return ret;
+		return ret; //memory should be freed eventually
 	} else if (len ==1 ){
 		void *ret = malloc(elem_sz);
 		memcpy(ret,arr,elem_sz);
-		return ret;
+		return ret; //memory should be freed eventually
 	} else {
 		void *ret = malloc( len * elem_sz );
 		int split = len / 2;
@@ -65,7 +65,7 @@ void * Merge (void *arr1, void *arr2, int len1, int len2, size_t size, compares 
 	int RemainderPtr = p1 == len1 ? p2 : p1;
 	int RemainderLen = p1 == len1 ? len2 : len1;
 	memcpy((ret + (retPtr * size)), (RemainderArr + (size * RemainderPtr)), (size * (RemainderLen - RemainderPtr)));
-	return (void *) ret;
+	return (void *) ret; // this memory should be freed
 }
 
 int IntComp(void *, void *);
@@ -77,14 +77,14 @@ void printIntArr(int *arr, int len){
 }
 
 int main(){
-	/* Testing Merge
+	// Testing Merge
 	int *a = (int *) malloc(2*sizeof(int));
 	int *b = (int *) malloc(4 * sizeof(int));
 	a[0] = 1; a[1] = 6; b[0] = 2; b[1] = 3; b[2]=8; b[3]=12;
 	int *merge = (int *) Merge(a, b, 2, 4, sizeof(int), IntComp);
 	printIntArr(merge, 6);
-	*/
-
+	
+	//Testing the sorting
 	int *test = (int *) malloc(8 * sizeof(int));
 	test[0]=12;test[1]=12;test[2]=25;test[3]=3;test[4]=1;test[5]=4;test[6]=2;test[7]=6;
 	int *result = (int *) malloc (8 * sizeof(int));
