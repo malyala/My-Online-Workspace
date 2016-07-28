@@ -39,22 +39,19 @@ twople transfer(twople start, int arr_size)
     return ret;
 }
 
-void circular_swap(int arr_size, int **Arr, twople start, int hold, twople current)
-{
+void circular_swap(int arr_size, int **Arr, twople start, int hold, twople current){
     /* This function rotates one cell and it's subsequent cell until it reaches the start
-       cell which is a two-tuple of (row, col). Current is the (row, col) of the cell whose
-       value will be moved to the next cell. The first call has start and current as the same cell. */
-    // matrix_print(arr_size, Arr); //Debugging.
-	twople next = transfer(current, arr_size);
-    if (tuple_equal(next ,start)){
-        Arr[start.tup[0]][start.tup[1]] = hold;
-    }else{
-        //invariant: hold is the value to be put in the next cell
-        int temp = Arr[next.tup[0]][next.tup[1]];
+       cell which is a two-tuple of (row, col).
+	   Current is the (row, col) of the cell whose
+       value will be moved to the next cell. 
+	   The first call has start and current as the same cell. */
+    //matrix_print(arr_size, Arr); //Debugging.
+     for (int i=0; i<4; ++i){   
+		twople next = transfer(current, arr_size);
+		int temp = Arr[next.tup[0]][next.tup[1]];
         Arr[next.tup[0]][next.tup[1]] = hold;
         current = next;
         hold = temp;
-        circular_swap(arr_size, Arr, start, hold, current);
     }
 }
 
