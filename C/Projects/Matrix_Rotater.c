@@ -52,7 +52,7 @@ void circular_swap(int arr_size, int **Arr, twople start, int hold, twople curre
 		Arr[next.tup[0]][next.tup[1]] = hold;
 		current = next;
 		hold = temp;
-    }
+	}
 }
 
 void matrix_rotate(int size, int **arr){
