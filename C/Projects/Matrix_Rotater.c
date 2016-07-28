@@ -24,6 +24,7 @@ void matrix_print(int size, int **arr)
         }
         putchar('\n');
     }
+	putchar('\n');
 }
 
 
@@ -46,7 +47,8 @@ void circular_swap(int arr_size, int **Arr, twople start, int hold, twople curre
     /* This function rotates one cell and it's subsequent cell until it reaches the start
        cell which is a two-tuple of (row, col). Current is the (row, col) of the cell whose
        value will be moved to the next cell. The first call has start and current as the same cell. */
-    twople next = transfer(current, arr_size);
+    // matrix_print(arr_size, Arr); //Debugging.
+	twople next = transfer(current, arr_size);
     if (tuple_equal(next ,start))
     {
         Arr[start.tup[0]][start.tup[1]] = hold;
@@ -63,10 +65,10 @@ void circular_swap(int arr_size, int **Arr, twople start, int hold, twople curre
 
 void matrix_rotate(int size, int **arr)
 {
-    size = (size % 2) ? size + 1 : size;
+	int adjustment = (size % 2)? 1 : 0;
     for (int i = 0; i < (size / 2); ++i)
     {
-        for (int j = 0; j < (size / 2); ++j)
+        for (int j = 0; j < ((size / 2) + adjustment); ++j)
         {
             twople start = {i, j};
             int hold = arr[i][j];
