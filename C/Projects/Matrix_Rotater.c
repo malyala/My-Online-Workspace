@@ -58,13 +58,10 @@ void circular_swap(int arr_size, int **Arr, twople start, int hold, twople curre
     }
 }
 
-void matrix_rotate(int size, int **arr)
-{
+void matrix_rotate(int size, int **arr){
 	int adjustment = (size % 2)? 1 : 0;
-    for (int i = 0; i < (size / 2); ++i)
-    {
-        for (int j = 0; j < ((size / 2) + adjustment); ++j)
-        {
+    for (int i = 0; i < (size / 2); ++i){
+        for (int j = 0; j < ((size / 2) + adjustment); ++j){
             twople start = {i, j};
             int hold = arr[i][j];
             circular_swap(size, arr,start, hold, start);
@@ -72,17 +69,14 @@ void matrix_rotate(int size, int **arr)
     }
 }
 
-int main()
-{
+int main(){
     int  **matrix;
     printf("What is the matrix dim?: \n");
     scanf("%d", &Matrix_dimension);
     matrix =  (int **) malloc(Matrix_dimension * sizeof(int *)); 
-    for (int i = 0; i < Matrix_dimension; ++i)
-    {
+    for (int i = 0; i < Matrix_dimension; ++i){
         matrix[i] = (int *) malloc(Matrix_dimension * sizeof(int));
-        for(int j = 0; j < Matrix_dimension; ++j)
-        {
+        for(int j = 0; j < Matrix_dimension; ++j){
             printf("What goes in cell with row %d and col %d\n", i, j);
             scanf("%d", matrix[i]+j);
         }
