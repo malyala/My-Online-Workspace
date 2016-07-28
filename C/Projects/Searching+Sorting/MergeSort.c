@@ -3,6 +3,9 @@ This is a generic merge sort that takes
 	1) An array
 	2) The length of the array
 	3) Size of each element
+	4) A function that takes pointers to elements p1, p2
+		and returns 1 iff *p1 < *p2
+		and 0 otherwise
 
 	and returns a sorted array (ascending order) with no side effects performed.
 
@@ -14,7 +17,7 @@ For now, memory efficency is not considered. This is a project to be returned to
 #include <string.h>
 #include "../swap.c" // probably repeats some libraries, fix this later
 void printIntArr(int *, int);
-
+void Merge (void *, void *, int, int, size_t, int(*fn)(void *, void*));
 
 void * MergeSort(void *arr, int len, size_t elem_sz, int (*fn)(void *, void *)){
 	void *ret = malloc( len * elem_sz );
