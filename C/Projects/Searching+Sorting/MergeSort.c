@@ -21,17 +21,10 @@ void printIntArr(int *, int);
 void * Merge (void *, void *, int, int, size_t, compares);
 
 void * MergeSort(void *arr, int len, size_t elem_sz, compares fn){
-	
-	if (len == 2){
-		void *ret = malloc(elem_sz * 2);
-		memcpy(ret, arr, 2*elem_sz);
-		if (!fn(arr, arr + elem_sz))
-			swap(ret, ret + elem_sz, elem_sz);
-		return ret; //memory should be freed eventually
-	} else if (len ==1 ){
-		void *ret = malloc(elem_sz);
-		memcpy(ret,arr,elem_sz);
-		return ret; //memory should be freed eventually
+	if (len <2){
+		void *ret = malloc(len * elem_sz);
+		memcpy(ret, arr, (len * elem_sz));
+		return ret; //this memory should eventually be freed
 	} else {
 		void *ret = malloc( len * elem_sz );
 		int split = len / 2;
@@ -78,18 +71,36 @@ void printIntArr(int *arr, int len){
 
 int main(){
 	// Testing Merge
+	/*
 	int *a = (int *) malloc(2*sizeof(int));
 	int *b = (int *) malloc(4 * sizeof(int));
 	a[0] = 1; a[1] = 6; b[0] = 2; b[1] = 3; b[2]=8; b[3]=12;
 	int *merge = (int *) Merge(a, b, 2, 4, sizeof(int), IntComp);
 	printIntArr(merge, 6);
-	
+	*/
 	//Testing the sorting
+	/*
 	int *test = (int *) malloc(8 * sizeof(int));
 	test[0]=12;test[1]=12;test[2]=25;test[3]=3;test[4]=1;test[5]=4;test[6]=2;test[7]=6;
 	int *result = (int *) malloc (8 * sizeof(int));
 	result = (int *) MergeSort(test, 8, sizeof(int), IntComp);
 	printIntArr(result, 8);
+	*/
+	int size;
+	printf("Give me int array size: ");
+	scanf("%d", &size);
+	int *testing = (int *) malloc(sizeof(int)* size);
+	for (int i = 0; i < size; ++i){
+		printf("What goes in cell %d: ",i);
+		scanf("%d", testing + i);
+	}
+	puts("Unsorted array: ");
+	printIntArr(testing, size);
+	int *test_result = (int *) malloc (size * sizeof(int));
+	test_result = (int *) MergeSort(testing, size, sizeof(int), IntComp);
+	puts("Post sort:");
+	printIntArr(test_result, size);
+
 	return 0;
 }
 

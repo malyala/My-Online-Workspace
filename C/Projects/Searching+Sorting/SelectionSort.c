@@ -11,9 +11,9 @@ which takes in
 */
 
 #include "../swap.c"
+typedef int (*compares)(void *, void*);
 
-
-void SelectionSort(void *arr, int len, size_t elem_sz, int (*fn)(void *, void *)){
+void SelectionSort(void *arr, int len, size_t elem_sz,compares fn){
 	for (int i=0; i+1 < len; ++i){
 		int smallest_index = i;
 		for (int j = i+1; j < len; ++j){
@@ -38,6 +38,23 @@ int main(){
 	puts("\nArray after sort:");
 	printIntArray(arr, 4);
 	free(arr);
+	
+	int size;
+	int *test;
+	printf("Give me an array size: ");
+	scanf("%d", &size);
+	test = (int *) malloc(size * sizeof(int));
+	for(int i = 0; i < size; ++i){
+		printf("What goes in cell %d?: ", i);
+		scanf("%d",test + i);
+	}
+	puts("\nYour array before sort:");
+	printIntArray(test, size);
+	SelectionSort(test, size, sizeof(int),lt_intArray);
+	puts("After sort:");
+	printIntArray(test, size);
+
+
 	return 0;
 }
 
@@ -45,7 +62,7 @@ void printIntArray(int *arr, int len){
 	printf("{");
 	for(int i = 0; i < len; ++i)
 		printf("%d, ",arr[i]);
-	printf("}");
+	printf("}\n");
 }
 
 
