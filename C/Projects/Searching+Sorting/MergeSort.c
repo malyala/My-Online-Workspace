@@ -16,11 +16,12 @@ For now, memory efficency is not considered. This is a project to be returned to
 #include <stdio.h>
 #include <string.h>
 #include "../swap.c" // probably repeats some libraries, fix this later
+typedef int (*compares)(void *, void *);
 void printIntArr(int *, int);
-void * Merge (void *, void *, int, int, size_t, int(*fn)(void *, void*));
+void * Merge (void *, void *, int, int, size_t, compares);
 
-void * MergeSort(void *arr, int len, size_t elem_sz, int (*fn)(void *, void *)){
-	void *ret = malloc( len * elem_sz );
+void * MergeSort(void *arr, int len, size_t elem_sz, compares fn){
+	
 	if (len == 2){
 		if (!fn(arr, arr + elem_sz))
 			swap(arr, arr + elem_sz, elem_sz);
@@ -28,19 +29,20 @@ void * MergeSort(void *arr, int len, size_t elem_sz, int (*fn)(void *, void *)){
 	} else if (len ==1 ){
 		return arr;
 	} else {
+		void *ret = malloc( len * elem_sz );
 		int split = len / 2;
 		void *first_half = malloc(split * elem_sz);
 		void *second_half = malloc((len - split) * elem_sz);
 		first_half = MergeSort(arr, split, elem_sz, fn);
 		second_half = MergeSort((arr + (split * elem_sz)),len - split, elem_sz, fn);
 		ret = Merge(first_half, second_half,split, len - split, elem_sz, fn);
-		free(first_half);
-		free(second_half);
+		//free(first_half);
+		//free(second_half);
 		return ret; // whatever calls this should eventually free ret
 	}
 }
 
-void * Merge (void *arr1, void *arr2, int len1, int len2, size_t size, int (*fn)(void *, void *)){
+void * Merge (void *arr1, void *arr2, int len1, int len2, size_t size, compares fn){
 	char *ret = (char *) malloc((len1 + len2)* size);
 	int retPtr = 0;
 	int p1 = 0, p2 = 0;
