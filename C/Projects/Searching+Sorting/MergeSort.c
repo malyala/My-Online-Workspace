@@ -23,11 +23,15 @@ void * Merge (void *, void *, int, int, size_t, compares);
 void * MergeSort(void *arr, int len, size_t elem_sz, compares fn){
 	
 	if (len == 2){
+		void *ret = malloc(elem_sz * 2);
+		memcpy(ret, arr, 2*elem_sz);
 		if (!fn(arr, arr + elem_sz))
-			swap(arr, arr + elem_sz, elem_sz);
-		return arr;
+			swap(ret, ret + elem_sz, elem_sz);
+		return ret;
 	} else if (len ==1 ){
-		return arr;
+		void *ret = malloc(elem_sz);
+		memcpy(ret,arr,elem_sz);
+		return ret;
 	} else {
 		void *ret = malloc( len * elem_sz );
 		int split = len / 2;
@@ -36,8 +40,8 @@ void * MergeSort(void *arr, int len, size_t elem_sz, compares fn){
 		first_half = MergeSort(arr, split, elem_sz, fn);
 		second_half = MergeSort((arr + (split * elem_sz)),len - split, elem_sz, fn);
 		ret = Merge(first_half, second_half,split, len - split, elem_sz, fn);
-		//free(first_half);
-		//free(second_half);
+		free(first_half);
+		free(second_half);
 		return ret; // whatever calls this should eventually free ret
 	}
 }
