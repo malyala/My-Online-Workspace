@@ -25,6 +25,12 @@ def FindColors(graph, ColorSet):
 	return soln;
 
 
+##Testing
+graph = {'A':['B','C'], 'B':['A'], 'C':['A']}
+colors = set(["red", "blue"])
+test1 = FindColors(graph, colors)
+print(str(test1) +
+"\n-> Should be A is diff from B and C (which are the same)")
 
 	
 
