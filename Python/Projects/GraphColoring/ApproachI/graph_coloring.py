@@ -1,4 +1,9 @@
+"""
+The complexity of this is O(n*k + d) where we have a set of k distinct colors
+and a graph with n nodes and total degree d. We can reason as follows. In the 
 
+
+"""
 
 
 
