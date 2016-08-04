@@ -1,7 +1,19 @@
 """
 The complexity of this is O(n*k + d) where we have a set of k distinct colors
-and a graph with n nodes and total degree d. We can reason as follows. In the 
+and a graph with n nodes and total degree d. 
 
+We can reason as follows. In the first loop, for each node, we do the following.
+We do some constant operation for each neighbor of that node and then perform
+a set difference and some trivial checks. The costly parts are the operations
+for each neigbor and the set difference.
+
+So, the complexity is O(n *(<set differnce> + <average number of neigbors>)).
+A set difference, A - B, is O(|A|). In this case, the cardinality of the
+ColorSet is k, by our definition above. The average number of neigbors is the
+total degree of the graph, d divided by the number of nodes, n.
+
+Hence, we have, 
+	O(n * (k + (d / n))) = O(nk + d).
 
 """
 
