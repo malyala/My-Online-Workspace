@@ -16,59 +16,57 @@ def lexer(bf_file):
     content = afile.read().replace(" ","").replace("\n", "").replace("\t", "")
     #for now assuming no letters and just bf symbols and whitespace
     afile.close()
-    index = 1
+    assert(len(content) > 0)
+    cont_length = len(content)
     previous_char = content[0]
-    char_count = 0
-    for char in content:
-        if char == "[" or char == "]":
-			ret.append((char, 1))
-			continue
-        if index == len(content):
-            if previous_char == char:
-				char_count += 1
-				ret.append((previous_char, char_count))
-            else:	
-				ret.append((previous_char, char_count))
-				ret.append((char, 1))
-        else:
-	        if previous_char == char:       
-	             char_count += 1 
-	        else:
-	            ret.append((previous_char, char_count))
-	            previous_char = char
-	            char_count = 1
-        index += 1
+    new_char_indicies = [0,]
+    for char_index in range(len(content)):
+		if content[char_index] != previous_char:
+			new_char_indicies.append(char_index)
+			previous_char = content[char_index]
+	#we have a list of indicies of content with chars that are different
+    for index in range(len(new_char_indicies)):
+		new_char_index = new_char_indicies[index]
+		if index == len(new_char_indicies) -1:
+			ret.append((content[new_char_index], cont_length - new_char_index))
+		else:
+			next_new_char_index = new_char_indicies[index + 1]
+			ret.append((content[new_char_index], \
+				next_new_char_index - new_char_index))
     return ret
+		
+		
+
+py_dict = {">":"{0}a.move_right({1})\n", \
+		    "<":"{0}a.move_left({1})\n", \
+		    "+":"{0}a.increment({1})\n", \
+			"-":"{0}a.decrement({1})\n", \
+		    ".":"{0}print(a.get())\n{1}", \
+			",":"{0}inp = input() #must be a nonneg integer\n{0}a.assign(int(inp))\n{1}", \
+			"[": "{0}while a.get() != 0:\n{1}", \
+}
+
 
 def compiler(lexed, prefix = "", First_time = False):
 	#lexed is a list of tuples ("char", int) like 
 	#("+", 3)
-	out = open("a.out.py", "a+")
+	out = open("a.out.py", "w")
 	if First_time:
 		out.write("from inflist import *\n")
 		out.write("a = InfiniteList()\n")
-	index = 0
 	for token in lexed:
 		typ = token[0]
 		amt = str(token[1])
-		if typ == ">":
-			out.write(prefix +"a.move_right(" + amt + ")\n")
-		elif typ == "<":
-			out.write(prefix +"a.move_left(" + amt + ")\n")
-		elif typ == "+":
-			out.write(prefix +"a.increment(" + amt + ")\n")
-		elif typ == "-":
-			out.write(prefix +"a.decrement(" + amt + ")\n")
-		elif typ == ".":
-			out.write(prefix +"print(a.get())\n")
-		elif typ == ",":
-			out.write(prefix +"inp = input() #must be an integer\na.assign(int(inp))\n")
-		elif typ == "[":
-			out.write(prefix + "while a.get() != 0:\n")
-			prefix += "\t"
+		if typ == "[":
+			for i in range(int(amt)):
+				out.write(py_dict[typ].format(prefix, ""))
+				prefix += "\t"
 		elif typ == "]":
-			prefix = prefix[:-1]
-		index += 1
+			for i in range(int(amt)):
+				prefix = prefix[:-1]
+		else:
+			amt = "" if (typ=="," or typ==".") else amt
+			out.write(py_dict[typ].format(prefix, amt))
 	out.close()
 	return None
 	
@@ -76,3 +74,6 @@ def the_compiler(path):
 	compiler(lexer(path), First_time = True)
 	return None
 
+the_compiler("/home/divesh/My-Online-Workspace/Favorite Work/BrainF Compiler/addition")
+
+#the_compiler("/home/divesh/My-Online-Workspace/Favorite Work/BrainF Compiler/test")
