@@ -1,0 +1,9 @@
+In this directory I give many approaches in solving 
+the graph coloring problem: 
+
+Given some bidirectional simple graph and a finite set of distict colors, 
+find a mapping of each node to some color in the set 
+such that no two nodes that share an edge have the same color, or, 
+report that no such coloring exists.
+
+

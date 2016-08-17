@@ -1,4 +1,7 @@
+"""
 
+A function for all returning all keys in a dict that have unique values.
+"""
 
 def uniqueValues(d):
     val_to_key = dict()
