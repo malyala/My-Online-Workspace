@@ -1,8 +1,9 @@
 #include <stdio.h>
 
-typedef enum bool {false, true} bool;
-
-bool IsPal(char *start, char *end){
+//the string must be non-empty and the pointers must be symmetric
+//they should also be no more than 1 apart when start > end.
+//We do not have leniance for punc, spaces or capitalization
+int IsPal(char *start, char *end){
     if (start > end)
         return true;
     else{
@@ -12,7 +13,7 @@ bool IsPal(char *start, char *end){
     }
 }
 
-bool IsPalindrome(char *word, size_t length){
+int IsPalindrome(char *word, size_t length){
     return IsPal(word, word + length - 1);
 }
     

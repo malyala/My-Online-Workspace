@@ -48,11 +48,11 @@ void * Merge (void *arr1, void *arr2, int len1, int len2, size_t size, compares 
 		if (check){
 			memcpy((ret + (retPtr * size)), (arr1 + (p1 * size)), size);
 			p1++;
-		} else{
+		}else{
 			memcpy((ret + (retPtr * size)), (arr2 + (p2 * size)), size);
 			p2++;
 		}
-	retPtr++;
+		retPtr++;
 	}
 	void *RemainderArr = p1 == len1 ? arr2 : arr1;
 	int RemainderPtr = p1 == len1 ? p2 : p1;

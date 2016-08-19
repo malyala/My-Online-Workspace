@@ -74,6 +74,6 @@ def the_compiler(path):
 	compiler(lexer(path), First_time = True)
 	return None
 
-the_compiler("/home/divesh/My-Online-Workspace/Favorite Work/BrainF Compiler/addition")
+the_compiler("/home/divesh/My-Online-Workspace/Python/Projects/BrainF Compiler/addition")
 
 #the_compiler("/home/divesh/My-Online-Workspace/Favorite Work/BrainF Compiler/test")
