@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
-
+#include "DoubleLL.h"
 typedef struct Node{
 	void *value;
 	struct Node *next = NULL;
@@ -51,33 +51,32 @@ void *IndexValue(DoubleLL *list, int i){
 }
 
 void InsertVal(DoubleLL *list, void *val, int i){
-	//if empty list, i is 0, else 0 <= i <= len
 	if(list->length == 0){
 		list->head = (Node *) malloc(sizeof(Node));
 		list->head->value = val;
-	}else if(list->length == i){
-		Node *ToInsert = (Node *) malloc(sizeof(Node));
-		ToInsert->value = val;
-		Node *LastNode = IndexNode(list, i-1);
-		LastNode->next = ToInsert;
-		ToInsert->prev = LastNode;
 	}else{
 		Node *ToInsert = (Node *) malloc(sizeof(Node));
 		ToInsert->value = val;
-		Node *CurrentNode = IndexNode(list, i);
-		if (i != 0){
+		if(i==0){
+			list->head->prev = ToInsert;
+			ToInsert->next = list->head;
+			list->head = ToInsert;
+		}else if(i==list->length){
+			Node *LastNode = IndexNode(list, i - 1);
+			LastNode->next = ToInsert;
+			ToInsert->prev = LastNode;
+		}else{
+			Node *CurrentNode = IndexNode(list, i);
 			Node *PrevNode = CurrentNode->prev;
 			PrevNode->next = ToInsert;
 			ToInsert->prev = PrevNode;
-		}
-		CurrentNode->prev = ToInsert;
-		ToInsert->next = CurrentNode;
-		if (i == 0){
-			list->head = ToInsert;
+			ToInsert->next = CurrentNode;
+			CurrentNode->prev = ToInsert;
 		}
 	}
-	list->length += 1;	
+	list->length += 1;
 }
+
 
 void DeleteIndex(DoubleLL *list, DeallocFn ValRemover, int i){
 	Node *CurrentNode = IndexNode(list, i);
@@ -105,7 +104,7 @@ void DeleteDLL(DoubleLL *list, DeallocFn Fn){
 	}
 }
 
-/* Testing */
+/* Testing *
 void derp(void *arg){};
 
 int main(){
@@ -120,6 +119,9 @@ int main(){
 	PrintIntList(test);
 	InsertVal(test, &d, 0);
 	PrintIntList(test);
+	InsertVal(test, &d, 4); //fail?
+	PrintIntList(test);
+	
 	DeleteIndex(test, derp, 0);
 	PrintIntList(test);
 	DeleteIndex(test, derp, 2);
@@ -143,5 +145,5 @@ int main(){
 	PrintIntList(test);
 	return 0;
 }
-/*    */
+   *    */
 
