@@ -10,15 +10,15 @@ typedef void (*DeallocFn)(void *);
 
 //Constructors
 DoubleLL *CreateDLL();
-void InsertVal(DoubleLL *, void *, int); // the int is the index.
+void InsertVal(DoubleLL *list, void *val, int i); // the int is the index.
 
 //Deconstructors
-void DeleteIndex(DoubleLL *, DeallocFn, int);
-void DeleteDLL(DoubleLL *, DeallocFn);
+void DeleteIndex(DoubleLL *list, DeallocFn, int i);
+void DeleteDLL(DoubleLL *list, DeallocFn);
 
 //Accessors
-void *IndexValue(DoubleLL *, int);
-int GetLen(DoubleLL *);
+void *IndexValue(DoubleLL *list, int i);
+int GetLen(DoubleLL *list);
 
 //Misc:
 void PrintIntList(DoubleLL *);
