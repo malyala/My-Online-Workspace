@@ -7,17 +7,19 @@ Notes:
 */
 typedef struct DoubleLL DoubleLL;
 typedef void (*DeallocFn)(void *);
+typedef struct Node Node;
 
 //Constructors
 DoubleLL *CreateDLL();
 void InsertVal(DoubleLL *list, void *val, int i); // the int is the index.
 
 //Deconstructors
-void DeleteIndex(DoubleLL *list, DeallocFn, int i);
+void DeleteIndex(DoubleLL *list, DeallocFn, int i); //must have len > 0
 void DeleteDLL(DoubleLL *list, DeallocFn);
 
 //Accessors
 void *IndexValue(DoubleLL *list, int i);
+Node *IndexNode(DoubleLL *list, int i);
 int GetLen(DoubleLL *list);
 
 //Misc:
