@@ -22,6 +22,10 @@ int GetPtr(BF_Array *arr){
 	return arr->pointer;
 }
 
+int GetVal(BF_Array *arr){
+	return *((int *) arr->CurrentNode->value);
+}
+
 void Increment(BF_Array *arr){
 	*((int *) arr->CurrentNode->value) += 1;
 }
@@ -34,7 +38,8 @@ void StoreValue(BF_Array *arr){
 	int input;
 	printf("Give your input: ");
 	scanf("%d", &input);
-	*((int *) arr->CurrentNode->value) = input; 
+	*((int *) arr->CurrentNode->value) = input;
+	fflush(stdin);
 }
 
 void PrintValue(BF_Array *arr){

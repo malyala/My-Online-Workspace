@@ -1,10 +1,19 @@
 #include "DoubleLL.h"
 #include "Stack.h"
 #include <stdio.h>
+#include <stdlib.h>
 
 typedef DoubleLL Stack;
+
 Stack *CreateStack(){
 	return CreateDLL();
+}
+
+void DeleteStack(Stack *stk, DeallocFn Fn){
+	while(GetLen(stk)){
+		Pop(stk, Fn);
+	}
+	free(stk);
 }
 
 void Push(Stack *instance, void *value){

@@ -10,4 +10,5 @@ void MoveRight(BF_Array *);
 int IndexVal(BF_Array *, int i);
 void DeleteBF_Array(BF_Array *);
 int GetPtr(BF_Array *);
+int GetVal(BF_Array *arr);
 
