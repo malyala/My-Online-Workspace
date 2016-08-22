@@ -9,10 +9,11 @@ The rest is self-explanatory.
 ##Favorite Stuff
 So far, my favorite things are the following (in *no particular order*).
 
-1. /Python/Projects/RSA_Encryption_Full_Example.py
-2. /Python/Projects/BrainF Compiler
-3. /Python/Selected Work From Introductory Course/graph_coloring_problem.py
-4. /C/Projects/Matrix_Rotater.c
+* /C/Projects/BrainF_REPL/
+* /Python/Projects/RSA_Encryption_Full_Example.py
+* /Python/Projects/BrainF Compiler
+* /Python/Selected Work From Introductory Course/graph_coloring_problem.py
+* /C/Projects/Matrix_Rotater.c
 
 ##About Me
 I am currently a Sophmore at [Haverford College](https://www.haverford.edu/
