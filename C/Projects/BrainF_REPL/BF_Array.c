@@ -33,13 +33,18 @@ void Increment(BF_Array *arr){
 void Decrement(BF_Array *arr){
 	*((int *) arr->CurrentNode->value) -= 1;
 }
+void ClearInput(){
+	char c;
+	while((c = getchar()) != '\n' && c != EOF){}
+}
+
 
 void StoreValue(BF_Array *arr){
 	int input;
 	printf("Give your input: ");
 	scanf("%d", &input);
 	*((int *) arr->CurrentNode->value) = input;
-	fflush(stdin);
+	ClearInput();
 }
 
 void PrintValue(BF_Array *arr){

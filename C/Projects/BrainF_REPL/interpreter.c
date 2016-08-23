@@ -65,12 +65,18 @@ void BF_repl(){
 		while(input[InputPointer] != '\0'){
 			char CurrentChar = input[InputPointer];
 			if(CurrentChar == '['){
-				int *x= (int *) malloc(sizeof(int));
-				(*x) = InputPointer + 1;
-				// If we did not malloc above, we would change the value
-				//of the variable x and mess up the stack
-				Push(LoopStack, x);
-				InputPointer++;
+				if(GetVal(Array) != 0){
+					int *x= (int *) malloc(sizeof(int));
+					(*x) = InputPointer + 1;
+					// If we did not malloc above, we would change the value
+					//of the variable x and mess up the stack
+					Push(LoopStack, x);
+				}else{
+					while(input[InputPointer] != ']'){
+						InputPointer++;
+					}
+				}
+			InputPointer++;
 			}else if(CurrentChar == ']'){
 				if(GetVal(Array) == 0){
 					Pop(LoopStack, free);
