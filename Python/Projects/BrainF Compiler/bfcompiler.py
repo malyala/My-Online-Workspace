@@ -37,14 +37,15 @@ def lexer(bf_file):
 		
 		
 
-py_dict = {">":"{0}a.move_right({1})\n", \
-		    "<":"{0}a.move_left({1})\n", \
-		    "+":"{0}a.increment({1})\n", \
-			"-":"{0}a.decrement({1})\n", \
-		    ".":"{0}print(a.get())\n{1}", \
-			",":"{0}inp = input() #must be a nonneg integer\n{0}a.assign(int(inp))\n{1}", \
-			"[": "{0}while a.get() != 0:\n{1}", \
-}
+py_dict = {
+    ">":"{0}a.move_right({1})\n", \
+    "<":"{0}a.move_left({1})\n", \
+    "+":"{0}a.increment({1})\n", \
+    "-":"{0}a.decrement({1})\n", \
+    ".":"{0}print(a.get())\n{1}", \
+    ",":"{0}inp = input(\"Give input: \") #must be a nonneg integer\n{0}a.assign(int(inp))\n{1}", \
+    "[": "{0}while a.get() != 0:\n{1}", \
+    }
 
 
 def compiler(lexed, prefix = "", First_time = False):
@@ -74,6 +75,6 @@ def the_compiler(path):
 	compiler(lexer(path), First_time = True)
 	return None
 
-the_compiler("/home/divesh/My-Online-Workspace/Python/Projects/BrainF Compiler/addition")
+the_compiler("/home/divesh/GitRepos/My-Online-Workspace/Python/Projects/BrainF Compiler/addition")
 
 #the_compiler("/home/divesh/My-Online-Workspace/Favorite Work/BrainF Compiler/test")
