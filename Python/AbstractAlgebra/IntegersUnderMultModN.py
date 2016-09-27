@@ -4,7 +4,7 @@ x = [1,3,5,7,9,11,13,15]
 def PowerTransform(alist, k, n):
     ret =  map(lambda y: (y**k)%n, alist);
     ret = list(ret)
-    ret.sort()
+#    ret.sort()
     return ret
 
 
@@ -18,7 +18,7 @@ def printTransformations(alist,k,n):
 #print map(lambda x: (9*x)%16,x )
 
 
-#printTransformations(x,15,16)
+printTransformations(x,15,16)
 
 #Now the integers under mult mod 8:
 
@@ -26,7 +26,7 @@ def printTransformations(alist,k,n):
 
 #printTransformations(y,25,8)
 
-print("\nNow integers under mult mod 7\n\n")
+#print("\nNow integers under mult mod 7\n\n")
 
 z = [1,2,3,4,5,6]
 
@@ -70,7 +70,7 @@ def findLeastSuperOrdersIntUnderMult(k):
     return None
 
 
-findLeastSuperOrdersIntUnderMult(50)
+#findLeastSuperOrdersIntUnderMult(50)
 
 mg = makegp
 def pt(k,n):
