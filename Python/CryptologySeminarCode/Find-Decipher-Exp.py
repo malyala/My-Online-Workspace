@@ -1,4 +1,7 @@
 """
+This file helps you find the deciphering exponent given primes p, q and public expoenent e. 
+
+
 
 To find the diaphantine equation (needed to find d) for a given (assuming the gcd of e, (p-1)(q-1) = 1), e,p,q,
 simply call the function find_diap_for(e,p,q)
