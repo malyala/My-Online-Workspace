@@ -34,6 +34,7 @@ void intArrPrint(void *arr, int len){
 	}
 	printf("}\n");
 }
+//Testing
 int main(){
 	int x[] = {1,2,3,4,5};
 	reverse(x, 5, sizeof(int));

@@ -1,7 +1,7 @@
 #include <stdio.h>
 /*
 Tried, unsuccessfully so far to solve the problem of a cat
-sleeping, encircled by natural k mice of which k-1 ar grey and 1 is white.
+sleeping, encircled by natural k mice of which k-1 are grey and 1 is white.
 
 The cat will eat each 13th (or jth) mouse. What mouse should it start with
 to eat the white mouse last?
@@ -10,7 +10,7 @@ Ideas:
 We could just have an array and similate the mouse by changing eaten parts of the array.
 
 I am, however searching for a better solution. One that perhaps, builds
-from the ground up backward lookingat the last, then second last , then thrid last ,... then first mouse the cat ate.
+from the ground up backward looking at the last, then second last , then third last ,... then first mouse the cat ate.
 
 */
 
