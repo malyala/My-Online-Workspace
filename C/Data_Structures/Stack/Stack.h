@@ -4,6 +4,7 @@
 typedef void (*DeallocFn)(void *);
 typedef DoubleLL Stack;
 Stack *CreateStack();
+int StackLen(Stack *);
 void Push(Stack *, void *value);
 void *Top(Stack *);
 void Pop(Stack *, DeallocFn);

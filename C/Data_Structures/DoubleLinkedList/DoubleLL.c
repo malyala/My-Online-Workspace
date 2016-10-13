@@ -1,21 +1,23 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "DoubleLL.h"
+
 typedef struct Node{
 	void *value;
-	struct Node *next = NULL;
-	struct Node *prev = NULL;
+	struct Node *next;
+	struct Node *prev;
 } Node;
 
 typedef struct DoubleLL{
 	Node *head;
-	int length = 0;
+	int length;
 } DoubleLL;
 
 typedef void (*DeallocFn)(void *);
 
 DoubleLL *CreateDLL(){
 	DoubleLL *ret = (DoubleLL *) malloc(sizeof(DoubleLL));
+	ret->length = 0;
 	return ret;
 }
 
@@ -37,7 +39,7 @@ void PrintIntList(DoubleLL *list){
 
 //Note: getting to the head is easy. Use this in stack implementation.
 Node *IndexNode(DoubleLL *list, int i){
-	//Precond: Non-empty list and 0 <= i <= len
+	//Precond: Non-empty list and 0 <= i < len
 	Node *ret = list->head;
 	for(i;i > 0;--i){
 		ret = ret->next;
@@ -54,9 +56,13 @@ void InsertVal(DoubleLL *list, void *val, int i){
 	if(list->length == 0){
 		list->head = (Node *) malloc(sizeof(Node));
 		list->head->value = val;
+		list->head->next = NULL;
+		list->head->prev = NULL;
 	}else{
 		Node *ToInsert = (Node *) malloc(sizeof(Node));
 		ToInsert->value = val;
+		ToInsert->next = NULL;
+		ToInsert->prev = NULL;
 		if(i==0){
 			list->head->prev = ToInsert;
 			ToInsert->next = list->head;
@@ -93,7 +99,7 @@ void DeleteIndex(DoubleLL *list, DeallocFn ValRemover, int i){
 		CurrentNode->prev->next = CurrentNode->next;
 		CurrentNode->next->prev = CurrentNode->prev;
 	}
-	DeallocFn(CurrentNode->value);
+	ValRemover(CurrentNode->value);
 	free(CurrentNode);
 	list->length -= 1;
 }

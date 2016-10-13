@@ -4,6 +4,10 @@
 #include "BF_Array.h"
 #define MAX_INPUT 41
 
+// Precondition: all code is legal code and the last character
+// of the input is not ]
+
+
 //Declarations:
 void BF_repl();
 void take_input(char *);
@@ -49,6 +53,25 @@ void ExecuteCommand(BF_Array *arr, char command){
 	}
 }
 
+void Derp(void *a){}
+
+int FindMatchingParen(char *input, int ptr){
+	void *val;
+	Stack *stack = CreateStack();
+	Push(stack, val);
+	ptr++;
+	while(StackLen(stack)){
+		if(input[ptr] == '['){
+			void *val;
+			Push(stack, val);
+		}else if(input[ptr] == ']'){
+			Pop(stack, Derp);
+		}
+		ptr++;
+	}
+	return ptr -1; //we want the pointer of the matching paren.
+}
+
 void BF_repl(){
 	int replStatus = 1;
 	char *input = (char *) malloc(MAX_INPUT);
@@ -56,11 +79,11 @@ void BF_repl(){
 	print_startmessage();
 	while(replStatus){
 		take_input(input);
-		if(input[0] == '*'){
+		int InputPointer = 0;
+		if(input[0] == '*' || InputPointer == (MAX_INPUT - 1)){
 			replStatus = 0;
 			continue;
 		}
-		int InputPointer = 0;
 		Stack *LoopStack = CreateStack();
 		while(input[InputPointer] != '\0'){
 			char CurrentChar = input[InputPointer];
@@ -72,9 +95,7 @@ void BF_repl(){
 					//of the variable x and mess up the stack
 					Push(LoopStack, x);
 				}else{
-					while(input[InputPointer] != ']'){
-						InputPointer++;
-					}
+					InputPointer = FindMatchingParen(input, InputPointer) + 1;
 				}
 			InputPointer++;
 			}else if(CurrentChar == ']'){

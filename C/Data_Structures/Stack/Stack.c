@@ -5,6 +5,10 @@
 
 typedef DoubleLL Stack;
 
+int StackLen(Stack *stk){
+	return GetLen(stk);	
+}
+
 Stack *CreateStack(){
 	return CreateDLL();
 }

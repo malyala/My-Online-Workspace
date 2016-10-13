@@ -19,7 +19,7 @@ Smaller to larger, no data lost. Otherwise, data lost.
 float to int just truncates the decimal stuff
 
 to keep precision
-float x = (float) 2/3 //will be 2.3333
+float x = (float) 2/3 //will be .66666
 
 */
     puts("We test (float) 2/3:");

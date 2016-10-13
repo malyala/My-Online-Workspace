@@ -9,12 +9,15 @@ struct Node
     struct Node *previous; //set to NULL for start of stack
 };
 
+
 struct Stack
 {
     DoubleLinkList *current_node;
     int length;
     int error; //0 is no error and 1 is an error
 };
+
+
 
 Stack * NewStack(void)
 {

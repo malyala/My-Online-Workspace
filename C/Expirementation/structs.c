@@ -18,12 +18,12 @@ struct LinkedList
 
 typedef struct LinkedList Node;
 
-void printperson(struct Person aperson)
+void printperson(struct Person *aperson)
 {
     printf("\nPerson's information:\n%s age: %d year: %d\n",
-    aperson.name,
-    aperson.age,
-    aperson.year);
+    (*aperson).name,
+    (*aperson).age,
+    (*aperson).year);
 
 }
 
@@ -36,11 +36,11 @@ int main()
     (*Rando).name = "Random Guy";
     (*Rando).age = 35;
     (*Rando).year= 2;
-    printperson(*Rando);
+    printperson(Rando);
 
     struct Person Divesh;
     Divesh = (struct Person) {"Divesh", 19, 2};
-    printperson(Divesh);
+    printperson(&Divesh);
 
     struct Person Copy;
     puts("We do: \
@@ -48,7 +48,7 @@ int main()
     \nCopy = Divesh;");
     Copy = Divesh;
     puts("\nCopy of Divesh Person:");
-    printperson(Copy);
+    printperson(&Copy);
     printf("\nInvolved Pointers:\nDivesh: %ld\nCopy: %ld\n\n",
     &Divesh,
     &Copy);
