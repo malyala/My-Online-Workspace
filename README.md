@@ -17,7 +17,7 @@ So far, my favorite things are the following (in *no particular order*).
 
 ##About Me
 I am currently a Sophmore at [Haverford College](https://www.haverford.edu/
-"Haverford College"). I am considering being computer science major.
+"Haverford College"). I am considering being a computer science major.
 
 I've been to a few hackathons and plan on going on many, many more. I am
 familiar with Python and C and am currently learning C++, Clojure and Scheme.
