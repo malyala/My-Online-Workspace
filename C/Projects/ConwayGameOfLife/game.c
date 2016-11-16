@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 typedef int **Board;
-#define BOARDSIZE 4
+#define BOARDSIZE 3
 
 
 void printboard(Board bd){
@@ -88,6 +88,7 @@ void RunConwayGame(){
 	while(runIt){
 		printboard(board);
 		NextState(&board);
+		printf("Give a non-negative int to continue: ");
 		scanf("%d", &runIt);
 	}
 }
