@@ -21,9 +21,9 @@ typedef struct LinkedList Node;
 void printperson(struct Person *aperson)
 {
     printf("\nPerson's information:\n%s age: %d year: %d\n",
-    (*aperson).name,
-    (*aperson).age,
-    (*aperson).year);
+    aperson->name,
+    aperson->age,
+    aperson->year);
 
 }
 
@@ -32,10 +32,10 @@ int main()
     
     struct Person *Rando;
     
-    Rando = malloc(sizeof(struct Person));
-    (*Rando).name = "Random Guy";
-    (*Rando).age = 35;
-    (*Rando).year= 2;
+    Rando = (Person *) malloc(sizeof(struct Person));
+    Rando->name = "Random Guy";
+    Rando->age = 35;
+    Rando->year= 2;
     printperson(Rando);
 
     struct Person Divesh;
@@ -59,7 +59,7 @@ int main()
 
     Node array;
     array.value = 2;
-    array.next = malloc(sizeof(Node));
+    array.next = (Node *) malloc(sizeof(Node));
     (*array.next).value = 3;
     array.next->value=4; //all that preceedes the arrow is treated as a pointer
     // we can subtitute as [stuff]->abcd as (*stuff).abcd
