@@ -1,10 +1,17 @@
 #include "FixedSizeHeap.h"
 #include <stdio.h>
 #include <stdlib.h>
+#include <assert.h>
+
+typedef struct Heap{
+	int length;
+	int maxLength;
+	void **heapArray;
+} Heap;
 
 // Declarations
 
-void swap(Heap *heap, int i, int j)
+void swap(Heap *heap, int i, int j);
 void maxHeapify(Heap *heap, int index, comparer comp);
 int left(int);
 int right(int);
@@ -13,14 +20,10 @@ int HeapSize(Heap *heap);
 
 // End of declarations
 
-struct Heap{
-	int length;
-	int maxLength;
-	void **heapArray;
-};
+// 	---------Main Methods: 
 
 
-Heap * CreateHeap(int length){
+Heap *CreateHeap(int length){
 	Heap *NewHeap = (Heap *) malloc(sizeof(Heap));
 	NewHeap->length = 0;
 	NewHeap->maxLength = length;
@@ -28,13 +31,13 @@ Heap * CreateHeap(int length){
 	return NewHeap;
 }
 
-void * HeapMaxPeek(Heap * heap){
+void *HeapMaxPeek(Heap * heap){
 	return HeapSize(heap) ? (heap->heapArray)[0] : NULL;
 }
 
-void * HeapMaxPop(Heap *heap, comparer comp){
+void *HeapMaxPop(Heap *heap, comparer comp){
 	void **arr = heap->heapArray;
-	max = arr[0];
+	void *max = arr[0];
 	if(HeapSize(heap)){
 		arr[0] = arr[heap->length - 1];
 		(heap->length) -= 1;
@@ -51,9 +54,9 @@ int HeapInsert(Heap *heap, void *val, comparer comp){
 	if(HeapSize(heap) != heap->maxLength){
 		(heap->length) += 1;
 		void **arr = heap->heapArray;
-		arr[length] = val;
-		int currentIndex = length;
-		int parentIndex = parent(length);
+		arr[HeapSize(heap)] = val;
+		int currentIndex = HeapSize(heap);
+		int parentIndex = parent(currentIndex);
 		while(comp(arr[parentIndex], arr[currentIndex])){
 			swap(heap, currentIndex, parentIndex);
 			currentIndex = parentIndex;
@@ -97,10 +100,10 @@ void maxHeapify(Heap *heap, int index, comparer comp){
 	void *rightChild = arr[right];
 	if(comp(leftChild, rightChild) && comp(current, rightChild)){
 		swap(heap, index, right);
-		maxHeapify(heap, right);
+		maxHeapify(heap, right, comp);
 	}else if(comp(current, leftChild)){
 		swap(heap, index, left);
-		maxHeapify(heap, left);
+		maxHeapify(heap, left, comp);
 	}
 }
 //To reason about the above lines, observe that 
@@ -137,7 +140,7 @@ int main(){
 		HeapInsert(test, elems + i, compare);
 	}
 	for(int i=0; i<6; ++i){
-		printf("%d, ", view(HeapMaxPop(test, comp)));
+		printf("%d, ", view(HeapMaxPop(test, compare)));
 		// This should be in sorted order
 	}
 	putchar('\n');

@@ -19,16 +19,16 @@ all function as expected.
 typedef struct Heap Heap;
 typedef int (*comparer)(void *, void *);
 
-Heap * CreateHeap(int length);
+Heap *CreateHeap(int length);
 	// Creates a heap of lenght length.
 	// Precondition: length> 0
 
-void * HeapMaxPeek(Heap *heap);
+void *HeapMaxPeek(Heap *heap);
 	// Returns the max pointer of the heap
 	// if the heap is non-empty. Otherwise, 
 	// it returns NULL.
 
-void * HeapMaxPop(Heap *heap, comparer comp);
+void *HeapMaxPop(Heap *heap, comparer comp);
 	// If the heap is non-empty it pops from the
 	// heap returning the max. Otherwise,
 	// it returns NULL signifying error.
