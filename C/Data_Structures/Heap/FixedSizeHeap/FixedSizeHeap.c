@@ -40,7 +40,7 @@ void *HeapMaxPop(Heap *heap, comparer comp){
 	void *max = arr[0];
 	if(HeapSize(heap)){
 		arr[0] = arr[heap->length - 1];
-		(heap->length) -= 1;
+		(heap->length) = (heap->length) - 1;
 		maxHeapify(heap, 0, comp);
 		return max;
 	}else{
@@ -52,11 +52,13 @@ void *HeapMaxPop(Heap *heap, comparer comp){
 int HeapInsert(Heap *heap, void *val, comparer comp){
 	assert(val != NULL);
 	if(HeapSize(heap) != heap->maxLength){
-		(heap->length) += 1;
 		void **arr = heap->heapArray;
 		arr[HeapSize(heap)] = val;
 		int currentIndex = HeapSize(heap);
 		int parentIndex = parent(currentIndex);
+		(heap->length) += 1; //After getting the right
+		//parent and curr index, we inc length
+		//which sets up for the while loop
 		while(comp(arr[parentIndex], arr[currentIndex])){
 			swap(heap, currentIndex, parentIndex);
 			currentIndex = parentIndex;
@@ -126,24 +128,67 @@ int parent(int i){
 // Testing---------------------------------
 
 int compare(void *a, void *b){
-	return *((int *) a) < *((int *) b);
+	return (*((int *) a)) < (*((int *) b));
 }
 
 int view(void *a){
 	return *((int *) a);
 }
 
-int main(){
-	Heap *test = CreateHeap(6);
-	int elems[6] = {2,34,1,67,32,5};
-	for(int i=0; i<6; ++i){
-		HeapInsert(test, elems + i, compare);
+void *inxHp(Heap *heap, int i){
+	return (heap->heapArray)[i];
+}
+
+void PrintIntHeap(Heap *heap){
+	int len = HeapSize(heap);
+	putchar('{');
+	for(int i=0; i<len; ++i){
+		printf("%d, ", view(inxHp(heap, i)) );
 	}
+	putchar('}');
+	putchar('\n');
+}
+
+
+int main(){
+	Heap *test = CreateHeap(8);
+	int elems[6] = {2,34,1,67,32,5};
+	int elems2[8] = {12,12,62,1,3,-6,4,63};
+	int x = 154;
+	
+	printf("elems is {2,34,1,67,32,5}\n\n");
+	for(int i=0; i<6; ++i){
+		printf("i is: %d\n", i);
+		HeapInsert(test, elems + i, compare);
+		if(i==2){
+			HeapMaxPop(test, compare);
+			HeapInsert(test, &x, compare);
+		}
+		PrintIntHeap(test);
+	}
+	printf("\n Expecting : 154, 67, 32, 5, 2, 1\n");
 	for(int i=0; i<6; ++i){
 		printf("%d, ", view(HeapMaxPop(test, compare)));
 		// This should be in sorted order
 	}
 	putchar('\n');
+
+	for(int i=0; i<8; ++i){
+		HeapInsert(test, elems2 + i, compare);
+		if(i==8){
+			HeapInsert(test, &x, compare);//this should fail
+		}
+	}
+	printf("\n Expecting: 63, 62, 12, 12, 4, 3, 1, -6\n");
+	for(int i=0; i<8; ++i){
+		printf("%d, ", view(HeapMaxPop(test, compare)));
+		// This should be in sorted order
+		if(i==7){
+			HeapMaxPop(test, compare); //This should fail
+		}
+	}
+	putchar('\n');
+
 	return 0;
 }
 
