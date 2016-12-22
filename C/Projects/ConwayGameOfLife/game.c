@@ -3,6 +3,22 @@
 typedef int **Board;
 #define BOARDSIZE 3
 
+/*
+ * 	In this file I implement Conway's Game of life.
+ * 	Just run it to make a board and give that board an 
+ * 	initial state by saying what goes in each cell.
+ * 	0 is a dead cell and a non-zero value is alive.
+ *
+ * 	If you want to change the board size, change that
+ * 	in line 4 above.
+ *
+ * 	Then, when running the game, give any input (like spacebar) 
+ * 	to walk though the states and see what happens.
+ *
+ *
+ */
+
+
 
 void printboard(Board bd){
 	printf("\n\n");
@@ -42,8 +58,10 @@ int nextValue(Board bd, int row, int col){
 	int currentState = bd[row][col];
 	if(currentState){
 		return liveNbCount ==2 || liveNbCount == 3;
+		// Live cells stay alive by 2 || 3 live nbs
 	}else{
-		return liveNbCount == 3;
+		return liveNbCount == 3; 
+		// Dead cells revied by 3 live nbs
 	}
 
 }
