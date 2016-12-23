@@ -1,6 +1,6 @@
 /*
 This is a generic merge sort that takes
-	1) An array
+	1) An array (non-empty)
 	2) The length of the array
 	3) Size of each element
 	4) A function that takes pointers to elements p1, p2
@@ -27,7 +27,7 @@ void * MergeSort(void *arr, int len, size_t elem_sz, compares fn){
 		return ret; //this memory should eventually be freed
 	} else {
 		void *ret = malloc( len * elem_sz );
-		int split = len / 2;
+		int split = len >> 1; //clever division by 2
 		void *first_half = malloc(split * elem_sz);
 		void *second_half = malloc((len - split) * elem_sz);
 		first_half = MergeSort(arr, split, elem_sz, fn);
@@ -94,13 +94,13 @@ int main(){
 		printf("What goes in cell %d: ",i);
 		scanf("%d", testing + i);
 	}
-	puts("Unsorted array: ");
+	puts("\nUnsorted array: ");
 	printIntArr(testing, size);
 	int *test_result = (int *) malloc (size * sizeof(int));
 	test_result = (int *) MergeSort(testing, size, sizeof(int), IntComp);
-	puts("Post sort:");
+	puts("\nPost sort:");
 	printIntArr(test_result, size);
-
+	free(test_result);	
 	return 0;
 }
 

@@ -13,14 +13,16 @@ A generic binary search that takes in
 
 #include <stdio.h>
 #include <stdlib.h>
+typedef int (*searchFn)(void *);
 
-int BinarySearchInternal(char *array, size_t element_size,  int (*func)(void *), int low_index, int high_index)
+int BinarySearchInternal(char *array, size_t element_size,  searchFn func, int low_index, int high_index)
 {
+	// This seacrches from [low_index, high_index] of the array.
 	if (low_index == high_index)
 		return func(array + (low_index * element_size)) == 0 ;
 	else 
 	{
-		int mid = low_index + ((high_index - low_index) / 2);
+		int mid = low_index + ((high_index - low_index)  >> 1); //Clever division by 2
 		int check = func(array + (mid * element_size));
 		if (check == 0)
 			return 1;
@@ -28,10 +30,11 @@ int BinarySearchInternal(char *array, size_t element_size,  int (*func)(void *),
 			return BinarySearchInternal(array, element_size, func, ++mid, high_index);
 		else
 			return BinarySearchInternal(array, element_size, func, low_index, mid);
+			//We can't decrement min since it could be zero.
 	}
 }
 
-int BinarySearch(char *array, size_t element_size, int (*func)(void *), int array_length)
+int BinarySearch(char *array, size_t element_size, searchFn func, int array_length)
 {
 	//Array must be non-empty!
 	return BinarySearchInternal(array, element_size, func, 0, array_length - 1);
