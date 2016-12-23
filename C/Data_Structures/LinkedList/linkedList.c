@@ -172,6 +172,17 @@ void RemoveDuplicates(LL *list, comparer comp){
 }
 
 
+//Problem 18
+
+		//Recursion, my old friend...
+void Reverse(LL *list){
+	if(llLen(list) >= 2){
+		void *end = llPop(list, 0);
+		Reverse(list);
+		llAppend(list, end);
+	}
+}
+
 
 
 // --------------Testing------------------------
@@ -245,6 +256,13 @@ int main(){
 	InsertSort(test, intComp);
 	print(test);
 	RemoveDuplicates(test, intequal);
+	print(test);
+	//Testing problem 18
+	printf("\n\nTesting problem 18 :)");
+	printf("\nBefore reverse: ");
+	print(test);
+	Reverse(test);
+	printf("\nAfter reverse: ");
 	print(test);
 
 	
