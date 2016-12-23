@@ -43,15 +43,16 @@ void *llIndex(LL *list, int i){
 
 int llInsert(LL *list, void *val, int index){
 	//We insert before the element at index index
-	Node *ret = (Node *) malloc(sizeof(Node));
 	assert((index > -1) && (index <= (list->len)));
+		//1. Make the node to insert
+	Node *ret = (Node *) malloc(sizeof(Node));
 	if(ret == NULL){
 		return 1;
 	}else{
 		ret->val = val;
 		ret->next = NULL;
 	}
-	
+		//2. Insert that node properly
 	if(list->len != 0){
 		//Insert before the node at index index.
 		//Append by inserting at index == list->len
