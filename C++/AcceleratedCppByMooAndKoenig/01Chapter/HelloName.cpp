@@ -7,7 +7,7 @@ int main(){
 		// Since we did not add the endline we wait for input on the same line
 		// 
 	std::string name;
-		// To read input we need to store it somewhere: in a varible
+		// To read input we need to store it somewhere: in a variable
 		// DEF: A  _variable_ is an object with a name.
 		// DEF: An _object_ is a piece of memory with a type.
 		//
@@ -23,6 +23,5 @@ int main(){
 	std::cout << "Hello, " <<  name << "!" << std::endl;
 	return 0;
 }
-
 
 

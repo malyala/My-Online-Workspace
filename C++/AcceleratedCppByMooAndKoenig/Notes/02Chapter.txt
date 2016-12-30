@@ -1,0 +1,168 @@
+02Chapter
+
+# Chapter 2 Notes: Control Structures
+
+ • This is all stuff you know already
+ • New stuff
+    ◦ To avoid writing the full name of some type in a library
+       ▸ write
+          ▹ using std::cin;
+       ▸ Then, you can do 
+          ▹ cin >> name;
+
+
+{{{c
+   
+   #include <iostream>
+   #include <string>
+   using std::cin;    using std::endl;
+   using std::cout;   using std::string;
+
+   int main(){
+      cout << "What is your name: ";
+      string name;
+      cin >> name;
+      const string greeting = "Hello, " + name + "!";
+      const int topPad = 1;
+      const int sidePad = 1;
+
+      const int rows = 2 * topPad + 3;
+      const string::size_type cols = greeting.size() + 2 * sidePad + 2;
+      
+      cout << endl;
+
+      for(int r=0; r != rows; ++r){
+         string::size_type c = 0;
+         while(c != cols){
+            if (r == topPad + 1 && c == sidePad + 1){
+               cout << greeting;
+               c += greeting.size();
+            }else if (r==0 || r==rows-1 || 
+            c==0 || c== cols-1){
+               cout << "*";
+               c++;
+            }else{
+               cout << " ";
+               c++;
+            }  
+         }
+         cout << endl;
+      }
+
+      return 0;
+   }
+
+   
+  }}}
+
+
+ • Details
+    ◦ Expressions
+       ▸ C++ inherits all C operators. It also overloads these operators.
+       ▸ To understand C++ expressions, one needs to know 3 things
+          ▹ 1) How operands group
+             ▪ Depends on the associativity and precedence of the operators
+          ▹ 2) How the operands will be converted into other types
+          ▹ 3) The order in which the operands are evaluated
+       ▸ Here is a list of operators grouped by precedence from high to low
+          ▹ Highest Precedence
+             ▪ x.y
+                ▫ The member y of object x
+             ▪ x[y]
+                ▫ The element in object x indexed by y
+             ▪ x++
+             ▪ x - - 
+          ▹ Second Highest Precedence
+             ▪ ++x
+             ▪ - -x
+             ▪ !x
+                ▫ logical negation of x
+          ▹ Third Highest
+             ▪ x*y
+                ▫ product of x and y
+             ▪ x/y
+                ▫ truncated division if both are integers
+             ▪ x%y
+                ▫ remainder of x divided by y
+          ▹ Fourth Highest
+             ▪ x >> y
+                ▫ If x is not an input stream this is bit shift x by y bits
+             ▪ x << y
+                ▫ similar to above
+          ▹ Fifth Highest
+             ▪ x relop y with relop \in {<, >, <=, >=}
+          ▹ Sixth Highest
+             ▪ x == y
+             ▪ x != y
+          ▹ Seven Highest
+             ▪ x && y
+          ▹ Eighth highest
+             ▪ x || y
+          ▹ Lowest precedence
+             ▪ x = y
+             ▪ x += y (or -=, *= , ...)
+             ▪ x ? y : z; 
+                ▫ implicit if x then y else z
+       ▸ Usually no guarantee of the order operands are evaluated
+          ▹ Hence, it is best not to have one operand's val depend on another
+       ▸ Conversion is typical for numeric types.
+    ◦ Types 
+       ▸ Only new one is string::size_type
+          ▹ It is like a string index type
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

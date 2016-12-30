@@ -1,0 +1,212 @@
+01Chapter
+
+# In this chapter: strings declarations, variables, initialization.
+
+## Our program:
+
+{{{c
+
+   //Ask for a person's name and greet them
+   #include <iostream>
+   #include <string>
+
+   int main(){
+      // Ask for the name
+      std::cout << "Please enter your first name: ";
+
+      // Read the name
+      std::string name; // create a variable
+      std::cin >> name; // read into that variable
+
+      //Write a greeting
+      std::cout << "Hello, " << name << "!" << std::endl;
+      return 0;
+   }
+
+}}}
+
+
+ • Run though of program
+    ◦ Just read the comments
+ • To read input, we need a place to put it: a variable
+ • DEF: A *variable* is an object that has a name.
+ • DEF: An *object* is a section of the computer's memory that is given a type.
+ • This distinction between object and variable is important
+    ◦ not every object has a name
+    ◦ local variable have a limited lifetime but some objects are used for a long time
+ • To use a variable, you provide a name and a type
+    ◦ name is for our convenient usage and checking
+    ◦ type helps the compiler work
+    ◦ In our case: name is name and type is std::string
+       ▸ std::string is a type defined under <string> from the std library
+ • The first line lacks a std::endl so the input is asked for on the same line
+ • Line 18 is a variable definition
+    ◦ name is a *local variable*
+       ▸ These are usable only within their {} scope
+       ▸ Once execution reaches the matching } to the closest { from start, 
+          ▹ the name is destroyed
+          ▹ system memory for that variable is returned
+ • Implicit in this declaration with a type is the *interface*
+    ◦ DEF: The interface is the set of operations permissible to instances of a type
+    ◦ So our operations on name are limited to those for std::string's
+ • Initializing a variable is often done implicitly. 
+    ◦ For std::string, it is initially initialized to "" the null string
+ • Line 19 uses the input operator and the standard input stream
+    ◦ as before this operator is left associative
+    ◦ For a type std::string, 
+       ▸ it ignores initial whitespace characters,
+       ▸ Takes in characters to store in the string until it reaches a whitespace char
+    ◦ Line 19 also has the side effect of writing the question to the screen
+       ▸ It flushes the buffer
+ • How the input-output library displays output
+    ◦ Writing characters to a terminal or wherever is time expensive
+    ◦ To save on time, the std io library uses a data structure called a buffer
+       ▸ <iostream> saves the characters to write in the *buffer*
+          ▹ When it is ready, it *flushes* the buffer and writes to the output device
+    ◦ The buffer is flushed in one of these three cases
+       ▸ If the buffer is full, the library flushes it automatically
+       ▸ If the library is asked to read from the std::cin, the std input stream
+       ▸ If we explicitly tell the library to flush the buffer
+          ▹ We do this with std::cout << std::endl;
+             ▪ In addition to ending the line, this flushes the buffer
+          ▹ Flushing is good practice so output doesn't stay in purgatory
+
+
+## Framing a Name
+
+The code:
+
+{{{c
+
+   #include <iostream>
+   #include <string>
+
+   int main(){
+      std::cout << "Enter name:";
+      std::string name;
+      std::cin >> name;
+
+      const std::string greeting = "Hello, " + name + "!";
+
+      const std::string spaces(greeting.size(), ' ');
+      const std::string second = "* " + spaces + " *";
+
+      const std::string first(second.size(), '*');
+      const std::string third = "* " + greeting + " *" ;
+
+      //Print it all out
+      std::cout << std::endl;
+      std::cout << first << std::endl;
+      std::cout << second << std::endl;
+      std::cout << third << std::endl;
+      std::cout << second << std::endl;
+      std::cout << first << std::endl;
+
+      return 0;
+   }
+
+}}}
+
+ • The new concepts are just in line 89 and 91.
+    ◦ line 89: const std::string greeting = "Hello, " + name + "!";
+    ◦ line 91: const std::string spaces(greeting.size(), ' '); 
+    ◦ The rest is self explanatory
+ • Line 89 introduces three new ideas
+    ◦ Variables can be given values in their definitions
+       ▸ like in C, you use =
+       ▸ If the variable and the RHS of the = have different values, the RHS is converted
+          ▹ Here we give a string-literal that is converted to a string
+    ◦ We can concatenate a string with +
+       ▸ This is a clear example of operator overloading
+       ▸ We can concatenate two strings or a string and a string literal
+          ▹ but not two string literals
+    ◦ Using const
+       ▸ This says the variable cannot be changed from its initial value
+       ▸ Hence, we must initialize const variables in their definition itself
+       ▸ Note:
+          ▹ The initialized value need not be a constant,
+             ▪ it just can't change once initialized
+          ▹ While operators like >> and + can be overloaded, their *associativity* remains
+             ▪ >> is left associative like <<
+                ▫ (std::cin >> name1) >> name2 works analogously to >>
+ • Line 91 introduces 3 more new ideas
+    ◦ 1) We can *construct* the variable using construction methods that depend on type
+       ▸ For type std::string we can use std::string spaces( int, char )
+    ◦ 2) Types have member functions. We can call this on instances.
+       ▸ std::string has the function size which is called str.size()
+          ▹ In general, instance.member()
+          ▹ This size gives the number of chars in the string
+    ◦ 3) Character literals are built-in types
+       ▸ string literals are complicated
+    ◦ Overall, the declaration constructs a string that is greeting.size() copies of ' '
+ • From knowing this, the rest can be understood
+ 
+
+
+## Details
+
+ • String Type
+    ◦ std::string s;
+       ▸ declares s as a string
+    ◦ std::string t = s;
+       ▸ s is a string or string literal
+    ◦ std::string z(n, c)
+       ▸ n is a positive int and c is a char
+       ▸ makes a string of n c's concatenated
+    ◦ os << s
+       ▸ write to output stream
+    ◦ is >> s
+       ▸ read from input stream
+    ◦ s + t
+       ▸ the result is type std::string
+    ◦ s.size()
+ • Variables
+    ◦ Local inside {}
+    ◦ Const means unchanging
+ 
+
+
+## Exercises
+
+ • 1) Both are valid. In the second, + is left associative.
+    ◦ So we never add string literal to string literal
+ • 2) Not valid. By left associativity we do add two literals
+ • 3) Is valid. Scopes separate variables.
+ • 4) Both are valid.
+ • 5) No. Change it so x is used in the right scope
+ • 6) I got this wrong. The first name will be samuel and the second will be Bekett. 
+    ◦ Apparently the input is still in the input stream when I do the second std::cin >>
+    ◦ So that means when we take input we want a way of flushing the input stream.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
