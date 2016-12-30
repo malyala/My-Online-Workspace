@@ -2,8 +2,21 @@
 
 # These are the chapter 0 notes
 
- • Testing this
-    ◦ Man I love this app
-    ◦ Whoo
- • Seriously this is cool
- 
+ • Let me try some code:
+
+
+
+{{{c
+   // some C code
+   int main(){
+      return 0;
+   }
+
+   typedef void *(*fn)(int, int);
+
+
+  }}} 
+
+
+
+

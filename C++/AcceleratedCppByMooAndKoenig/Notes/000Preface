@@ -1,0 +1,19 @@
+000Preface
+
+ • Top down approach & problem oriented
+ • Abstracts details of C++, covereing them in the end
+ • Subset of need-to-know C++
+ • Not a C-first or C-style text. Teaches C++ style.
+ • Can be divided into 2 parts
+    ◦ Ch 0-7: std library usage
+    ◦ Ch 8 onward: defining your own abstractions
+ 
+
+      Usage
+ • New ideas are bolded when introduced
+ • The details section is mostly a reference
+ • To learn from the text well
+    ◦ run all the code
+    ◦ do the exercises (and practice on your own)
+
+
