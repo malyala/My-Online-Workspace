@@ -48,6 +48,26 @@ The basic intro program
        ▸ the ; tells the implementation to throw away the result of the expression
           ▹ Why?: Because we only care about the side-effects
     ◦ Programs are just a list of declarations and expression statements.
+ • Misc to come
+    ◦ For now, types are definition of data structures and
+       ▸ operations on those data structures
+ • On the program
+    ◦ For input-output stuff, we need <iostream>
+    ◦ We saw the *output operator* <<
+       ▸ <<(output stream, string or manipulator)
+       ▸ It returns the output stream
+       ▸ Thus, std::cout << a << b is
+          ▹ (std::cout << a) << b
+          ▹ The first () evaluates to std::cout.
+ • Details
+    ◦ Know your literals: \n \t \b \" \' \\
+    ◦ Types are either
+       ▸ in the core language
+       ▸ In standard headers
+       ▸ user defined
+
+
+
 
 
 
