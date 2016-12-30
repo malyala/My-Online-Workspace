@@ -1,4 +1,4 @@
-000Preface
+Preface
 
  • Top down approach & problem oriented
  • Abstracts details of C++, covereing them in the end
@@ -16,4 +16,4 @@
     ◦ run all the code
     ◦ do the exercises (and practice on your own)
 
-
+The first note is 00Chapter 

@@ -1,0 +1,56 @@
+00Chapter
+
+The basic intro program
+{{{c
+// A basic C++ program
+   #include <iostream>
+   int main(){
+      std::cout << "Hello World!" << std::endl;
+      return 0;
+   }
+
+}}}
+
+                                     * * *
+
+ • Basic observations
+    ◦ Comments are just like in C
+    ◦ To use libraries not part of the *core language* we use include directives
+       ▸ For standard libraries, the header is in <>
+    ◦ Like in C, every program has a main function in which execution happens. 
+    ◦ Function declaration and usage have the same rules.
+ • The new stuff is 1) Scope and 2) Expressions. 
+ • Scope
+    ◦ c++ has namespaces. These are like boxes in which unique names can reside.
+       ▸ The analogy is street names and how those are reused in different states.
+       ▸ We use the scope operator ::
+       ▸ For example, std::cout is the standard output stream inside the namespace std.
+       ▸ This is left associative. a::b::c is (a::b)::c
+    ◦ All braces {} define a new scope in which local variables can be made.
+ • Expressions
+    ◦ These are the building blocks of programs and functions.
+    ◦ DEF: An *expression* is a unit of code that 
+       ▸ 1) Asks the c++ implementation to compute something
+       ▸ 2) returns some result 
+       ▸ 3) and might have some side-effect, or change the state of some memory
+    ◦ Expressions are like functions: return something and may have had side-effects
+    ◦ Expressions are made of operands and operators
+       ▸ Operators behave according to the type of their operand.
+          ▹ In our case, << is a left associative operator.
+             ▪ It takes an input stream and a string or manipulator
+             ▪ With a string it writes the result
+             ▪ With a manipulator it does what the manipulator is for
+                ▫ With the manipulator std::endl it ends the current line of output
+          ▹ Type is discussed later.
+       ▸ Operands are objects (explained later) which have a certain type.
+          ▹ Our objects are instances of output streams and manipulators
+    ◦ DEF: An *expression statement* is an expression with a ; at the end.
+       ▸ the ; tells the implementation to throw away the result of the expression
+          ▹ Why?: Because we only care about the side-effects
+    ◦ Programs are just a list of declarations and expression statements.
+
+
+
+
+
+
