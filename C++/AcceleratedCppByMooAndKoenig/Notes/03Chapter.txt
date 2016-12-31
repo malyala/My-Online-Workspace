@@ -1,0 +1,289 @@
+03Chapter
+
+# Chapter 3: Batches of Data
+
+We basically introduce the idea of a list of arbitrary length. 
+This is the one and only container for holding a sequence of ordered data
+
+## Computing Student Grades With Averages
+
+{{{c
+
+   #include <iomanip>
+   #include <ios>
+   #include <iostream>
+   #include <string>
+
+   using std::cin;    using std::cout;
+   using std::setprecision;    using std::string;
+   using std::endl;    using std::streamsize;
+   int main(){
+      cout << "Enter your name: ";
+      string name;
+      cin >> name;
+      cout << "Hi, " << name << endl;
+
+      cout << "Enter midterm and final grades: ";
+      double midterm, final;
+      cin >> midterm >> final;
+
+      cout << "Enter all your HW grades"
+               "Followed by EOF: ";
+      int count = 0;
+      double sum = 0;
+      double x;
+      while(cin >> x){
+         count++;
+         sum += x;
+      }
+      streamsize prec = cout.precision();
+      cout << "Final Grade: " << setprecision(3)
+      << 0.2 * midterm + 0.4 * final + 0.4 * sum / count
+      << setprecision(prec) << endl;
+
+      return 0;
+
+   }
+
+
+
+
+
+
+
+}}}
+
+ • I will only mention what is new. 
+ • New include directives
+    ◦ <iomanip> has the manipulator setprecision
+       ▸ this sets number of decimal points in the answer
+       ▸ It has other manipulators in general
+       ▸ endl is so common that it was just tacked on to <iostream>
+    ◦ <ios>
+       ▸ This has the type streamsize with is sizes associated with streams
+ • Double is preferable over float. Floats lack a great deal of precision.
+    ◦ They are remnants from the past
+ • The EOF in linux is Ctrl-D
+ • Two string literals seperated by only whitespace are concatenated
+    ◦ Useful for breaking up long lines
+ • We initialize count and sum
+    ◦ 0 is of type int
+    ◦ It is fine for count but the compiler (any decent one) fixes it for sum
+       ▸ the line goes from
+          ▹ double sum = 0; to
+          ▹ double sum = 0.0;
+    ◦ In general, when variables are declared they have a *default initialization*
+       ▸ For built in types, this is *undefined* and you can't access them
+          ▹ The memory is just allocated with whatever junk was there
+       ▸ (Hopefully) for c++ made types, they are initialized with some value
+ • Precision and output code
+    ◦ We keep a variable to keep track of the current precision in output
+       ▸ To do so, we use a member function of output streams called precision()
+    ◦ We then use the manipulator setprecision(int) on cout
+ • When we use cin >> x in the while loop 
+    ◦ We evaluate that expression to get cin.
+    ◦ Like all types, their conversion to a bool is defined by the type
+    ◦ For the output stream type, it's boolean value is a state
+       ▸ this is complicated and is discussed in 12Chapter
+    ◦ For now, know that if the read cin >> x fails it's because
+       ▸ The read was invalid for the type of x
+       ▸ We reached an EOF
+       ▸ The system detected a hardware failure on the input device
+    ◦ In our case, the EOF should do it
+
+
+## Computing Final Grades With Medians
+
+{{{c
+
+#include <algorithm>
+#include <iomanip>
+#include <ios>
+#include <iostream>
+#include <string>
+#include <vector>
+
+using std::cin; 	using std::sort;
+using std::cout; 	using std::streamsize;
+using std::endl; 	using std::string;
+using std::vector; 	using std::setprecision;
+
+int main(){
+	cout << "First name: ";
+	string name;
+	cin >> name;
+	cout << "Hi, " << name << endl;
+
+	cout << "Midterm and final grades: ";
+	double midterm, fin;
+	cin >> midterm >> fin;
+
+	cout << "Enter all HW grades"
+		"Followed by EOF: ";
+	vector<double> homework;
+	double x;
+	while(cin >> x){
+		homework.push_back(x);
+	}
+
+	sort(homework.begin(), homework.end());
+	typedef vector<double>::size_type vec_sz;
+	vec_sz size = homework.size();
+	vec_sz mid = size/2;
+
+	if (size==0){
+		cout << "No Grades Entered." << endl;
+		return 1;
+	}
+	
+	double median;
+	median = size % 2 == 0 ? 
+		(homework[mid] + homework[mid-1])/2 
+		: homework[mid];
+	
+	streamsize prec = cout.precision();
+	cout << "Final grade: " << setprecision(3) 
+		<< 0.2 * midterm + 0.4 * fin + 0.4 * median
+		<< setprecision(prec) << endl;
+
+
+	return 0;
+}
+
+}}}
+
+
+ • To compute the grade with the median homework score, we need to store the HW
+    ◦ You can prove that when we don't know the number of HW's this is needed
+ • To compute the median, the simplest method is to
+    ◦ sort the values and then pick the middle (or average the two middle ones)
+    ◦ provided, of course, that we have a non-zero amount of grades to work with
+ • We do so with the Vector template
+    ◦ It has the qualities we were looking for. We wanted a container C s.t.
+       ▸ C can store values one at a time without knowing the maximum amount
+          ▹ Appending, dynamic memory management
+       ▸ C can sort the values
+          ▹ The built in algorithm
+       ▸ C can efficiently get at the middle value 
+          ▹ indexing
+ • Vector template:
+    ◦ A *vector* is like a python array but for one type only
+    ◦ To append values you do v.push_back(x) to append x
+       ▸ this is a member function of the vector
+       ▸ It appends the value and as a side effect increments the size
+    ◦ we call v.size() to see the size of vector v
+       ▸ We use this to test whether any grades were entered otherwise we'd have an error
+       ▸ To store the size, we need a var of the size of that vector type
+          ▹ hence, the typedef
+          ▹ typedef vector<double>::size_type vec_sz;
+          ▹ This is a type that is guaranteed to hold the largest vector size possible
+             ▪ This is nice and functional like that
+             ▪ You could then in theory prove code better with this
+          ▹ We them make the variable using the size method
+             ▪ vec_sz size = homework.size();
+       ▸ Back on topic: to test whether we fail, we test whether size==0
+          ▹ If so, we return 1 which means error in main()
+    ◦ vectors can also be indexed with [] 
+       ▸ We do this in a self-explanatory way to find the median
+          ▹ Try it on small examples and see why the indicies work out
+          ▹ Drawing a picture helps
+ • To sort the vector (or other containers?) we use the sort function
+    ◦ This comes from <algorithm>
+    ◦ It takes in a some form of denoting the first element in the vector and the last
+       ▸ For this, we use the member functions
+          ▹ v.begin() v.end()
+          ▹ begin denotes the first element
+          ▹ end denotes one past the last element
+          ▹ All of this is explained in detail in later chapters,
+          ▹ Just know that this is how you sort a vector for now
+       ▸ The syntax:
+          ▹ sort(v.begin(), v.end());
+       ▸ It sorts in place
+    ◦ From here, the rest is easy. We just use the vector indexing to do the job.
+
+
+                                     * * *
+
+                           *Additional Observations* 
+
+ • Why do we check if the vector is empty
+    ◦ Things will go wrong with the index []
+       ▸ There is no standard for what happens if we index an empty vector
+ • vec_sz is unsigned 
+    ◦ This means it can't be negative. So, things like size -100 are never negative
+       ▸ The -100 is converted to a unsigned value and added to size
+       ▸ Things can get weird
+ • The performance of the program is quite good
+    ◦ The c++ standard imposes performance requirements on the library's implementation
+       ▸ For vectors, every C++ standard conforming implementation must
+          ▹ Have amortized cost of O(n) for appending
+          ▹ Have sort be O(n*log(n)) 
+    ◦ This happens in general
+       ▸ Hence C++ is used for performance critical applications
+
+## Details
+
+ • Vector type
+    ◦ vector<T> name;
+       ▸ declare a vector of objects of type T
+    ◦ v.begin() v.end()
+       ▸ as before, 
+    ◦ v.push_back(x)
+    ◦ v[i]
+    ◦ v.size()
+ • Library facilities
+    ◦ In <algorithm>
+       ▸ sort(b,e)
+          ▹ in place sort in the range [b, e) in non decreasing order
+       ▸ max(e1, e2)
+          ▹ Based on these types, returns the max
+    ◦ The state of cin >> x is whether the read was successful 
+    ◦ <iomanip>
+       ▸ Has setprecision
+    ◦ <ios>
+       ▸ Has streamsize
+    ◦ <iostream> 
+       ▸ s.precision() method
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

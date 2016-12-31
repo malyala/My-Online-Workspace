@@ -111,7 +111,7 @@
           ▹ It is like a string index type
 
 
-
+All the exercises are easy
 
 
 
