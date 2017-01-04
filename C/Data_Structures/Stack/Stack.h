@@ -1,4 +1,5 @@
-
+#ifndef GUARD_Stack
+#define GUARD_Stack
 
 #include "DoubleLL.h"
 typedef void (*DeallocFn)(void *);
@@ -12,4 +13,4 @@ void DeleteStack(Stack *, DeallocFn);
 
 //The DeallocFn frees the memory of *value when it takes in the pointer, value.
 
-
+#endif

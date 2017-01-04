@@ -1,0 +1,719 @@
+04Chapter
+
+# Program and Data Organization
+
+ In this chapter, we discuss how to organize programs and data.
+ The main topics are functions, structs, more io, error catching, misc library stuff:
+ (in line string construction, max, sophisticated sort,), program organization and header
+ files.
+
+C++ offers two main ways of organizing computation: functions and data structures
+   The first is discussed here.
+   Data structures are in 09Chapter.
+
+
+## Organizing Computations with Functions
+
+ • Advantages of functions
+    ◦ less copy and paste
+    ◦ easy to make changes
+    ◦ the name helps us focus on what it does not how
+       ▸ abstraction: selective ignorance
+    ◦ The grade function:
+{{{c
+   double grade(double midterm, double final, double homework){
+      return 0.2 * midterm + 0.4 * final + 0.4 *homework;
+   }
+}}} 
+
+ • Notes
+    ◦ Most things are like C: call by value, evaluation of args then call
+ • Finding the median
+    ◦ In 08Chapter, we see how to do this for any type of vector
+    ◦ Median:
+{{{c
+
+   double median(vector<double> vec){
+      typedef vector<double>::size_type vecsz;
+      // the typedef is local so it doesn't take away the name
+      // in case someone wants to use vecsz
+      vecsz size = vec.size();
+      if(size==0){
+         throw domain_error("Median of an empty vector");
+      }
+
+      sort(vec.begin(), vec.end());
+      vecsz mid = size / 2;
+      return size % 2 == 0 ? (vec[mid] + vec[mid - 1]) / 2 : vec[mid];
+   }
+
+}}}
+
+ • New thing: throwing and exception
+    ◦ To complain in a sensible way (like a precondition violation)
+       ▸ We *throw* an *exception object* if vec is empty
+       ▸ This stops execution and returns the exception object to the calling scope
+          ▹ The exception object can contain a string as we've seen
+       ▸ The type of our exception object is domain_error
+          ▹ This type is defined in <stdexcept>
+          ▹ domain_error means the args are outside the domain of what is accepted
+          ▹ A special case of a predcondition failure (hopefully clarified soon)
+ • Note: we copy the entire vector.
+    ◦ Despite the overhead, this is correct since we sort the vector and
+    ◦ this is not a side effect we want when calculating the median in general
+ • Now, we make another function to compute grade from the midterm, final and HW
+    ◦ This is because we may switch between average and median grade policies
+    ◦ Here it is:
+
+{{{c
+   double grade(double midterm, double final, const vector<double>& hw){
+      if(hw.size()==0){
+         throw domain_error("student has no homework");
+      }
+      return grade(midterm, final, median(hw));
+   }
+}}}
+
+ • There are three new and/or important things
+    ◦ The type of the third argument is const vector<double>&
+    ◦ The grade name is overloaded
+    ◦ We again throw an exception even though median does because this is more helpful
+       ▸ The other one could still be confusing to a user
+ • The const & type
+    ◦ This type is "reference to vector of const double"
+    ◦ Writing 
+       ▸ const <type>& name;
+    ◦ says name is a const reference to an object of type type
+    ◦ A *reference* is another name for an object: a synonym
+       ▸ For example
+          ▹ int x;
+          ▹ int &y = x;
+       ▸ makes y another name for x. Changing y changes x.
+       ▸ Because a reference is a synonym, a reference to a reference is just a
+       ▸ reference to the original object
+          ▹ a ref to a ref does not exist
+    ◦ Making something const in general says you will not change it. 
+       ▸ Similarly, not making it const indicates an intent (or openness) to changing it
+       ▸ In our case, a const reference is
+          ▹ a synonym that promises no changes through that name
+          ▹ For example
+             ▪ int x = 4;
+             ▪ const int y& = x;
+             ▪ x++; // legal
+             ▪ y++; // Illegal and will fail
+       ▸ We cannot make a non-const reference point to a const reference
+          ▹ Continued example:
+             ▪ const int z& = y ;// This is fine
+             ▪ int q& = y ;// this fails since y is const
+          ▹ As before, a non-const reference is leaving open to changes: write access
+    ◦ In function definitions, an argument of this type means
+       ▸ we get the actual argument without copying it
+          ▹ This avoids the *overhead* of copying it
+       ▸ we assert we will not change that argument
+ • We overload the name grade
+    ◦ The implementation will look at the types of the args given to grade
+    ◦ and then determine which function to use
+ • We check the size of homework because the error message from median is too broad
+    ◦ A user would be lost without knowing the implementation
+
+Using IO
+ • We make a function to read in the HW grades
+    ◦ we want it to return two values: 
+       ▸ the vector with the values and
+       ▸ an indication of success or failure
+          ▹ this will just be the stream: recall it has a state like a bool value
+    ◦ To do so, we can just make it have an argument in which to store one of the inputs
+    ◦ The traditional way is: returns the stream
+    ◦ See below:
+
+{{{c
+   istream& read_hw(istream& in, vector<double>& hw){
+      if(in){ //do not change in state
+         hw.clear(); // clear hw contents
+         double x;
+         while(in >> x){
+            hw.push_back(x);
+         }
+         in.clear(); // reset in state
+      }
+      return in;
+   }
+}}}
+
+ • The declaration
+    ◦ istream is the std input stream type
+    ◦ We don't want to copy such a presumably large object, so we pass by reference
+       ▸ Similarly, we return the given reference
+    ◦ Note both arguments are *non-const references*
+       ▸ This means *we intend to change them*
+       ▸ You must give *lvalue* type inputs to args of functions of non-const ref type
+          ▹ lvalue type is a non-temporary type
+             ▪ 3 + 4 is temporary, constants are temporary
+             ▪ variables are not-temporary
+             ▪ basically anything that can still be accessed by the calling scope
+             ▪ is lvalue
+    ◦ Logically, we intend to "change" the input stream so it's type is reasonable
+    ◦ Now to think about the function body, we need to understand what are allowed inputs
+ • Function body
+    ◦ We say the precondition is nothing
+    ◦ Think about the postcondition
+       ▸ If the input stream is in an error state, we don't want to touch it
+          ▹ Let the caller realize something went wrong
+       ▸ Otherwise, we want to put as much as we can into the vector
+          ▹ First, the vector could be populated: no precondition remember
+             ▪ So, we clear it
+          ▹ We just expect the user to be sensible here
+          ▹ At the end, we want the caller to think the input is done.
+          ▹ So, the stream should be in a non-error state
+             ▪ We clear it
+             ▪ This is overloaded and for istreams means removing an error state
+       ▸ istream.clear() sets the stream to a non-failure state
+       ▸ vec.clear() clears all entrees of the vector
+
+                                     * * *
+
+ • Three kinds of function parameters
+    ◦ median copies the vector
+       ▸ no intent to change original, 
+       ▸ but implementation changes some vector
+    ◦ grade takes a const reference
+       ▸ no intent to change
+       ▸ don't want overhead of copy
+    ◦ read_hw takes a reference
+       ▸ intent to modify the original
+       ▸ Must be given a lvalue
+
+                                     * * *
+Questions
+ • What does the reference have to do with address of operator?
+ • Connection to pointers?
+ • What is the underlying idea? How does this improve upon C?
+    ◦ To implement call be reference in a consistent and much easier manner
+ • How does the synonym usage relate to the function call usage?
+ • Why can't you set non-const references to const references?
+    ◦ what happens under the hood?
+    ◦ What happens when you try to modify via a reference? Does it take a path?
+    ◦
+                                     * * *
+
+Now, the re-implemented program:
+
+{{{c
+// include directives and using-declarations for library facilities
+// code for median function from §4.1.1/53
+// code for grade(double, double, double) function from §4.1/52
+// code for grade(double, double, const vector<double>&) function from §4.1.2/54
+// code for read_hw(istream&, vector<double>&) function from §4.1.3/57
+int main()
+{
+   // ask for and read the student's name
+   cout << "Please enter your first name: ";
+   string name;
+   cin >> name;
+   cout << "Hello, " << name << "!" << endl;
+   // ask for and read the midterm and final grades
+   cout << "Please enter your midterm and final exam grades: ";
+   double midterm, final;
+   cin >> midterm >> final;
+   // ask for the homework grades
+   cout << "Enter all your homework grades, "
+   "followed by end-of-file: ";
+   vector<double> homework;
+   // read the homework grades
+   read_hw(cin, homework);
+   // compute and generate the final grade, if possible
+   try {
+      double final_grade = grade(midterm, final, homework);
+      streamsize prec = cout.precision();
+      cout << "Your final grade is " << setprecision(3)
+      << final_grade << setprecision(prec) << endl;
+
+   } catch (domain_error) {
+      cout << endl << "You must enter your grades. "
+      "Please try again." << endl;
+      return 1;
+
+   }
+   return 0;
+
+}
+
+}}}
+
+ • New thing: try -catch 
+    ◦ It executes the statements 
+       ▸ If a domain_error exception occurs, it jumps to the catch clause
+       ▸ If other error occur, the program yells
+       ▸ Otherwise, at the end of the block the catch {} is skipped
+ • For every catch block think carefully about *when side effects occur*
+    ◦ Assume that anything might throw an exception
+    ◦ Have every line have at most one side effect
+    ◦ This is why we compute the grade before we print it
+    ◦ Otherwise, we might print something and then have an exception
+       ▸ this would leave some unintended output on the screen
+       ▸ See text for details
+ • So far, this is really long with a ton of functions
+ • Further, this is difficult for using on many students
+ • We fix both of these moving forward
+
+## Organizing Data
+
+In brief, we make the problem harder and solve it with better data abstraction
+as well as procedure abstraction for that data abstraction (functions for student_info
+structs)
+
+
+ • Enhanced problem
+    ◦ Assume we are given a file of the grades of all students
+       ▸ format: each line is 
+          ▹ name midterm final h1 h2 ... hn
+    ◦ We have the same grading policy
+    ◦ We want to print out in alphabetical order
+       ▸ Carpenter     86.3
+       ▸ Darry         92.1
+          ▹ this is sorted alphabetically and alligned nicely
+    ◦ To Solve this: 
+       ▸ Strategy
+          ▹ have a way to store data for each student (vector)
+          ▹ sort that vector alphabetically
+          ▹ Have a function to output grade given a student object
+          ▹ for each student print their name and grade formatted nicely
+       ▸ Needed abstractions
+          ▹ A way to hold a single student's info
+          ▹ A way to take input for a single student
+             ▪ we also want this to be as easy as
+                ▫ while (cin >> x){
+                   • vector.push_back(x)
+                ▫ }
+             ▪ so this function should tell us whether an individual read for a student 
+             ▪ was successful
+          ▹ A way to sort the vector
+          ▹ A function to calculate a grade from a student object
+ • Student object
+    ◦ C++ has structs like C
+{{{c
+   struct Student_info {
+      string name;
+      double midterm, final;
+      vector<double> homework;
+   };
+}}}
+    ◦ Structs are types. Just typedef it.
+    ◦ In C++ can have complex dynamic memory using types like vector<double>
+ • Reading Function
+    ◦ Goal
+       ▸ read from input a student object 
+       ▸ return whether the read was successful
+       ▸ similar to before: return input stream and argument is struct to use
+    ◦ Implementation:
+
+{{{c
+
+istream& read(istream& is, Student_info& s)
+{
+   // read and store the student's name and midterm and final exam grades
+   is >> s.name >> s.midterm >> s.final;
+   read_hw(is, s.homework); // second arg is reference, this works
+   return is;
+   // read and store all the student's homework grades
+
+}
+
+}}}
+
+ • Note
+    ◦ if line 313 has an error the 314 will maintain the error state of is
+    ◦ That way, the error is detected
+ • Now, grade function
+
+{{{c
+
+   double grade(const Student_info &s){
+      return grade(s.midterm, s.final, s.homework);
+      // no conflict since s.homework is const &
+   }
+
+}}}
+
+ • Now, sorting the vector of Student_info objects
+    ◦ We can't use sort as before
+       ▸ sort(v.begin(), v.end()); will fail
+    ◦ It fails because the < is not defined for the type Student_info
+       ▸ if this happens sort would rely on it's third argument
+    ◦ So, we need to add third argument to sort:
+       ▸ this one
+          ▹ a function bool f(const Student_info &a, const Student_info &b) that 
+          ▹ returns True iff a < b
+       ▸ Such a function is called a *predicate* a function that yields a truth value
+    ◦ Since we want alphabetical order, we can just do this
+{{{c
+
+   bool compare(const Student_info &x, const Student_info &y){
+      return x.name < y.name
+   }
+
+}}}
+
+ • This relies on the < overloading of type string objects
+    ◦ str1 < str2 iff str1 comes before in alphabetical order
+ • So, we sort with
+
+{{{c
+   sort(students.begin(), students.end(), compare);
+}}}
+
+ • Students is a vector<Student_info>
+ • The final program
+
+{{{c
+
+int main()
+{
+   vector<Student_info> students;
+   Student_info record;
+   string::size_type maxlen = 0;
+   // read and store all the records, and find the length of the longest name
+   while (read(cin, record)) {
+      maxlen = max(maxlen, record.name.size());
+      students.push_back(record);
+
+   }
+   // alphabetize the records
+   sort(students.begin(), students.end(), compare);
+   for (vector<Student_info>::size_type i = 0;
+         i != students.size(); ++i) {
+      // write the name, padded on the right to maxlen + 1 characters
+      cout << students[i].name
+         << string(maxlen + 1 - students[i].name.size(), ' ');
+      // compute and write the grade
+      try {
+         double final_grade = grade(students[i]);
+         streamsize prec = cout.precision();
+         cout << setprecision(3) << final_grade
+         << setprecision(prec);
+
+      } catch (domain_error e) {
+         cout << e.what();
+
+      }
+      cout << endl;
+
+   }
+   return 0;
+
+}
+
+}}}
+
+ • Three new points
+    ◦ max is a function from the library <algorithm>
+       ▸ the types of both of it's arguments must match
+          ▹ We see why in 08Chapter
+    ◦ We can construct in-line strings with the same thing we saw for spaces
+       ▸ string spaces(4, " "); is "    "
+       ▸ We do spaces( 12, " " ) to construct a string of 12 " "'s
+    ◦ We print the error (no hw) to the output in the catch block
+       ▸ We give the error type a variable name e
+          ▹ To see the error message, we see e.what()
+          ▹ This is printed
+
+
+## Program Organization
+
+ • Separate Compilation
+    ◦ If we compiled everything in one file it would get real messy for complex programs
+    ◦ C++ like C supports separate compilation
+ • Example: median
+    ◦ median.cpp
+{{{c
+#include <algorithm> // to get the declaration of sort
+#include <stdexcept> // to get the declaration of domain_error
+#include <vector> // to get the declaration of vector
+using std::domain_error; using std::sort; using std::vector;
+// compute the median of a vector<double>
+// note that calling this function copies the entire argument vector
+double median(vector<double> vec){
+   typedef vector<double>::size_type vec_sz;
+   vec_sz size = vec.size();
+   if (size == 0)
+      throw domain_error("median of an empty vector");
+   sort(vec.begin(), vec.end());
+   vec_sz mid = size / 2;
+   return size % 2 == 0 ? (vec[mid] + vec[mid-1]) / 2 : vec[mid];
+}
+
+}}}    
+
+    ◦ Header file
+       ▸ Note that all declarations and using statements are executed in including files
+          ▹ So, always use full names std::name 
+       ▸ To avoid double inclusion
+          ▹ at start 
+             ▪ #ifndef uniquevarname
+             ▪ #define uniquevarname
+          ▹ at end
+             ▪ #endif
+       ▸ This ensures that file is included only once
+       ▸ Our files are called header files while std files are called std headers
+    ◦ median.h :
+
+{{{c
+#ifndef GUARD_median_h
+#define GUARD_median_h
+// median.h—final version
+#include <vector>
+double median(std::vector<double>);
+#endif
+}}}
+
+    ◦ The preprocessor
+       ▸ It checks if the *preprocessor variable* is defined
+       ▸ If so, it skips to the #endif 
+       ▸ Otherwise, it defines it as in the next line and continues
+    ◦ Good idea for this ifndef stuff to be the first line
+       ▸ some implementations won't open files after checking the first two lines
+          ▹ saves time
+ • With the rest
+    ◦ In total
+       ▸ One file with median
+       ▸ One file with Student_info
+          ▹ the struct
+          ▹ reading input into a student object
+             ▪ which needs
+                ▫ Reading inputs into a vector<double>
+          ▹ comparing two student objects
+       ▸ One file with 3 grade functions
+          ▹ double grade(double, double)
+          ▹ double grade(double, double, const vector<double>&)
+          ▹ double grade(const Student_info&)
+    ◦ See below
+
+   Student_info.h
+{{{c
+
+#ifndef GUARD_Student_info
+#define GUARD_Student_info
+// Student_info.h header file
+#include <iostream>
+#include <string>
+#include <vector>
+   struct Student_info {
+      std::string name;
+      double midterm, final;
+      std::vector<double> homework;
+
+   };
+   bool compare(const Student_info&, const Student_info&);
+   std::istream& read(std::istream&, Student_info&);
+   std::istream& read_hw(std::istream&, std::vector<double>&);
+#endif
+
+}}}
+
+   Student_info.c
+{{{c
+
+// source file for Student_info-related functions
+#include "Student_info.h"
+using std::istream;
+using std::vector;
+bool compare(const Student_info& x, const Student_info& y)
+{
+   return x.name < y.name;
+
+}
+
+istream& read(istream& is, Student_info& s)
+{
+   // read and store the student's name and midterm and final exam grades
+   is >> s.name >> s.midterm >> s.final;
+   read_hw(is, s.homework);
+   return is;
+   // read and store all the student's homework grades
+}
+
+// read homework grades from an input stream into a `vector'
+istream& read_hw(istream& in, vector<double>& hw){
+   if (in) {
+      // get rid of previous contents
+      hw.clear();
+      // read homework grades
+      double x;
+      while (in >> x){
+         hw.push_back(x);
+         // clear the stream so that input will work for the next student
+         in.clear();
+      }
+   }
+   return in;
+}
+
+}}}
+
+ • Including the header file is standard
+    ◦ Not sure of the purpose
+    ◦ It helps because you double check declarations and definitions
+       ▸ This checking is only partial
+          ▹ while the implementation can check some declarations match definitions
+             ▪ Look at name, input and output types
+          ▹ it cannot be sure since some function names are overloaded
+ • using declarations in source file fine
+    ◦ source files are local. They are not included.
+    ◦ Only the specified functions are used
+       ▸ All local stuff is hidden
+       ▸ exactly like information hiding in C
+
+   grade.h
+{{{c
+
+#ifndef GUARD_grade_h
+#define GUARD_grade_h
+// grade.h
+#include <vector>
+#include "Student_info.h"
+double grade(double, double, double);
+double grade(double, double, const std::vector<double>&);
+double grade(const Student_info&);
+#endif
+
+}}}
+
+
+   grade.c
+{{{c
+
+#include <stdexcept>
+#include <vector>
+#include "grade.h"
+#include "median.h"
+#include "Student_info.h"
+using std::domain_error;
+using std::vector;
+
+double grade(double midterm, double final, double homework)
+{
+   return 0.2 * midterm + 0.4 * final + 0.4 * homework;
+
+}
+
+// compute a student's overall grade from midterm and final exam grades
+// and vector of homework grades.
+// this function does not copy its argument, because median does so for us.
+double grade(double midterm, double final, const vector<double>& hw)
+{
+   if (hw.size() == 0)
+      throw domain_error("student has done no homework");
+      return grade(midterm, final, median(hw));
+
+}
+
+double grade(const Student_info& s)
+{
+   return grade(s.midterm, s.final, s.homework);
+
+}
+
+}}}
+
+
+
+      •  *Finally*
+{{{c
+
+
+#include <algorithm>
+#include <iomanip>
+#include <ios>
+#include <iostream>
+#include <stdexcept>
+#include <string>
+#include <vector>
+#include "grade.h"
+#include "Student_info.h"
+using std::cin;
+using std::cout;
+using std::domain_error;
+using std::endl;
+using std::max;
+
+int main(){
+	vector<Student_info> students;
+	Student_info record;
+	string::size_type maxlen = 0;
+	using std::setprecision;
+	using std::sort;
+	using std::streamsize;
+	using std::string;
+	using std::vector;
+	// the length of the longest name
+	// read and store all the students data.
+	// Invariant: students contains all the student records read so far
+	//	maxlen contains the length of the longest name in students
+	while (read(cin, record)) {
+		// find length of longest name
+		maxlen = max(maxlen, record.name.size());
+		students.push_back(record);
+	}
+	// alphabetize the student records
+	sort(students.begin(), students.end(), compare);
+	// write the names and grades
+	for (vector<Student_info>::size_type i = 0;
+		i != students.size(); ++i) {
+		// write the name, padded on the right to maxlen + 1 characters
+		cout << students[i].name
+			<< string(maxlen + 1 - students[i].name.size(), ' ');
+		// compute and write the grade
+	try {
+		double final_grade = grade(students[i]);
+		streamsize prec = cout.precision();cout << setprecision(3) << final_grade
+		<< setprecision(prec);
+	} catch (domain_error e) {
+		cout << e.what();
+	}
+	cout << endl;
+	}
+	return 0;
+}
+
+
+
+}}}
+
+
+## Details
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

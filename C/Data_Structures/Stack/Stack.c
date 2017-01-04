@@ -39,7 +39,7 @@ void Pop(Stack *instance, DeallocFn ValDeleter){
 
 void derp(void *arg){}
 
-
+//* Testing 
 int main(){
 	int a=1, b=2, c=3;
 	Stack *test = CreateStack();
