@@ -245,7 +245,34 @@ int main(){
     ◦ <iostream> 
        ▸ s.precision() method
 
+## Checklist
 
+ • What do <ios> and <iomanip> have?
+    ◦ why don't we need <iomanip> for endl ?
+ • What is EOF in linux?
+ • What does setprecision(n) do?
+ • What method does a std::ostream object have to see its precision
+ • Which is better float or double?
+    ◦ Hint: One is a remnant of the past that you should never use
+ • In which header is std::istream and std::ostream defined? (Hint: it's obvious)
+ • How can you shorten lines if you have a long string literal to write?
+    ◦ What happens in compilation when you write that?
+ • What is default initialization of variables?
+    ◦ What kind of types have variables that are initialized undefined?
+    ◦ What does it mean for a var to be initialized undefined?
+ • What are three ways in which a read is unsuccesful?
+    ◦ (Ans: eof, incompatible type, input device failure)
+ • What is a vector?
+    ◦ What is the type for an index variable?
+    ◦ What operations does it support?
+    ◦ What is the speed (complexity) of those operations required by ISO?
+ • What is special about vector<T>::size_type? 
+    ◦ can it be negative
+    ◦ Say x is of that type. 
+       ▸ What is x - 100 ?
+ • How do you sort a vector?
+    ◦ What header do you need?
+    ◦ What is the ISO required complexity of the vector?
 
 
 

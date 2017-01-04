@@ -116,6 +116,13 @@ All the exercises are easy
 
 
 
+# Checklist
+
+ • How do you avoid typing std::cout all the time?
+ • How do you for safety mark a variable as read only?
+    ◦ When can you initialize such variables?
+ • What 3 things must you know to understand how expressions evaluate?
+
 
 
 

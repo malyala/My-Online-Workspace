@@ -179,6 +179,35 @@ The code:
     ◦ So that means when we take input we want a way of flushing the input stream.
 
 
+## Checklist
+
+ • What is the difference between a variable and an object?
+    ◦ What is the definition of each?
+    ◦ Why is this distinction important? 
+    ◦ Connection to hardware? (guess)
+ • What is the scope of a local variable?
+ • What is the definition of an interface of a type T?
+ • How are strings initialized? 
+    ◦ What is std::string x; the initial value of x?
+ • How is input taken in?
+    ◦ How exactly does cin >> var; work?
+    ◦ When can it fail?
+ • How does an iostream save time on writes?
+    ◦ What is a buffer?
+    ◦ What does it mean to flush a buffer?
+    ◦ What are the exact 3 cases in which stdlib flushes the cout buffer?
+ • What are the two ways you can initialize string variables?
+ • How can you add strings?
+    ◦ Can you add a string and a string literal?
+       ▸ What type results?
+    ◦ Can you add two string literals?
+
+
+
+
+
+
+
 
 
 

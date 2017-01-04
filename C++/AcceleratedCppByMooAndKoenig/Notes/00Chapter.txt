@@ -1,6 +1,9 @@
 00Chapter
 
-The basic intro program
+
+
+## The basic intro program
+
 {{{c
 // A basic C++ program
    #include <iostream>
@@ -65,6 +68,34 @@ The basic intro program
        ▸ in the core language
        ▸ In standard headers
        ▸ user defined
+
+## Checklist
+
+ • What are namespaces?
+    ◦ What is the scope operator?
+    ◦ What is the associativity of a::b::c ?
+ • What is an expression?
+ • What is an expression statement?
+    ◦ What does the ; say to the implementation?
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

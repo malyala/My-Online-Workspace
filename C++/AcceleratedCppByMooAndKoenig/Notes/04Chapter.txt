@@ -3,9 +3,10 @@
 # Program and Data Organization
 
  In this chapter, we discuss how to organize programs and data.
- The main topics are functions, structs, more io, error catching, misc library stuff:
- (in line string construction, max, sophisticated sort,), program organization and header
- files.
+ The main topics are functions, structs, more io (istream references), error catching, 
+ misc library stuff:
+    (in line string construction, max, sophisticated sort,),
+program organization and header files.
 
 C++ offers two main ways of organizing computation: functions and data structures
    The first is discussed here.
@@ -630,25 +631,18 @@ double grade(const Student_info& s)
 #include <vector>
 #include "grade.h"
 #include "Student_info.h"
-using std::cin;
-using std::cout;
-using std::domain_error;
-using std::endl;
-using std::max;
+using std::cin; using std::cout; using std::domain_error; using std::endl; using std::max;
 
 int main(){
 	vector<Student_info> students;
 	Student_info record;
 	string::size_type maxlen = 0;
-	using std::setprecision;
-	using std::sort;
-	using std::streamsize;
-	using std::string;
-	using std::vector;
-	// the length of the longest name
+	using std::setprecision;	using std::sort;
+	using std::streamsize;	using std::string;	using std::vector;
+
 	// read and store all the students data.
 	// Invariant: students contains all the student records read so far
-	//	maxlen contains the length of the longest name in students
+   	//	maxlen contains the length of the longest name in students
 	while (read(cin, record)) {
 		// find length of longest name
 		maxlen = max(maxlen, record.name.size());
@@ -663,24 +657,126 @@ int main(){
 		cout << students[i].name
 			<< string(maxlen + 1 - students[i].name.size(), ' ');
 		// compute and write the grade
-	try {
-		double final_grade = grade(students[i]);
-		streamsize prec = cout.precision();cout << setprecision(3) << final_grade
-		<< setprecision(prec);
-	} catch (domain_error e) {
-		cout << e.what();
-	}
-	cout << endl;
+   	try {
+   		double final_grade = grade(students[i]);
+   		streamsize prec = cout.precision();
+         cout << setprecision(3) << final_grade
+   		<< setprecision(prec);
+   	}catch(domain_error e){
+      	cout << e.what();
+   	}
+   	cout << endl;
 	}
 	return 0;
 }
 
 
-
 }}}
+
+ • Notes
+    ◦ Recall the rule of max in <algorithms>
+    ◦ Recall the construction string(string::size_type, ' ')
+    ◦ Recall that exception object have a method .what()
+       ▸ it returns the string descriptor of the error
+
 
 
 ## Details
+
+ • Types
+    ◦ T&
+       ▸ This is a reference to an argument of type T
+       ▸ In function definitions, when called the input must be a lvalue
+    ◦ const T&
+       ▸ meant to avoid overhead of copying
+       ▸ No desire to change the object
+ • Structures
+    ◦ These should only appear once
+    ◦ Their corresponding header file should be guarded
+       ▸ the ifndef stuff
+ • Functions
+    ◦ There is some new wierd stuff
+       ▸ A new syntax is used for func with complex return types
+          ▹ see A.1.2 for that story
+    ◦ Can be overloaded so long as the implementation can distinguish
+       ▸ E.G. 
+          ▹ A function int func(int) and double func(int) can't work 
+          ▹ If I write func(3) it can't tell which one to use
+    ◦ There is an optional (tricky) thing called inline
+       ▸ You can force the implementation to substitute the function at compile time
+          ▹ like a macro
+          ▹ This avoid func call overhead
+          ▹ Worry about it when you know more
+ • Exception classes
+    ◦ There are more like domain_error
+    ◦ The complete list
+       ▸ logic_error
+       ▸ length_error
+       ▸ range_error
+       ▸ domain_error
+       ▸ out_of_range
+       ▸ overflow_error
+       ▸ invalid_argument
+       ▸ runtime_error
+       ▸ underflow_error
+ • Library Facilities
+    ◦ s1 < s2
+       ▸ returns true iff strings s1, s2 in alphabetical order
+    ◦ s.width(n)
+       ▸ sets the width of the stream s to n for the next output operation
+          ▹ this pads the output on the left to the given width
+    ◦ setw(n)
+       ▸ returns a streamsize value that when written on output stream s does s.width(n)
+ 
+## Checklist
+
+ • What is the type for the index value of vector<T>?
+ • How do you throw an error
+    ◦ What type of error do you know how to throw?
+ • How do you include a string when throwing an exception
+    ◦ How do you read that string as the caller?
+ • What are references?
+    ◦ How do they work with const?
+       ▸ When you assign a non-const to a const reference?
+    ◦ How do they work in function arguments?
+    ◦ Is there a reference to a reference?
+    ◦ What is a non-const reference used for in funcs?
+       ▸ What are the rules of usage?
+          ▹ What types can the argument provided be?
+ • What should an input taker function do?
+    ◦ How does it return two values: success of input? and stored input?
+    ◦ What should it do if the istream is bad?
+    ◦ When should it return a failure istream state?
+ • What are the three kinds of function parameters? 
+    ◦ When are they used?
+ • How do try- catch clauses work?
+    ◦ What must you be careful of when writing them?
+       ▸ What is the one word that is important here? (Cy D Efct)
+    ◦ When can the try block fail?
+ • What type is an input stream? 
+    ◦ In what header is it located?
+ • How do you sort a vector of a type T on which a < b is undefined?
+    ◦ What type must a comparer function return?
+    ◦ What must be the type of the arguments of the comparer?
+       ▸ HINT: you shouldn't change the values
+ • Library stuff
+    ◦ How can you alphabetically order strings?
+       ▸ What does s1 < s2 mean if true?
+    ◦ what is max()
+       ▸ in what header is it defined?
+       ▸ What are the restrictions on it's two arguments?
+    ◦ How do you inline construct a string of one char repeated some times?
+ • How do you insure header files are not used more than once?
+    ◦ What is that statement called?
+    ◦ What do we call variables defined in that statement
+    ◦ Why should these two lines come first in a header file?
+ • Terminology: What do we call "header files" of the standard library?
+    ◦ What don't we call them?
+    ◦ When I say "header file" I imply these [choose one: ARE/ARE NOT] from the stdlib
+ • Why is the redundancy of declarations and definitions when 
+    ◦ file.c includes "file.h" good?
+    ◦ Why is it incomplete?
+       ▸ When is function name overloading allowed? When is it not-allowed?
 
 
 
