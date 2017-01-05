@@ -2,5 +2,27 @@
 Do problems
 		0,1,2,3,4,7,8
 
+1)
+
+The code will not work. The type of maxlen is int while the type of s.name.size() 
+is std::string::size_type. Further, maxlen is not initalized. While strings have an 
+initial "" value, ints do not. 
+
+You would fix it by changing the first line to 
+	std::string::size_type maxlen;
+	maxlen = 0; // not sure if this initialization is needed
+
+
+2) done
+3) I can't prove it but setw is malfunctioning on me.
+
+7) done
+
+8)
+
+You can infer it returns a collection of doubles that can be indexed.
+It could be a vector<double>.
+
+
 
 

@@ -511,7 +511,7 @@ double median(std::vector<double>);
 
 }}}
 
-   Student_info.c
+   Student_info.cpp
 {{{c
 
 // source file for Student_info-related functions
@@ -580,7 +580,7 @@ double grade(const Student_info&);
 }}}
 
 
-   grade.c
+   grade.cpp
 {{{c
 
 #include <stdexcept>
