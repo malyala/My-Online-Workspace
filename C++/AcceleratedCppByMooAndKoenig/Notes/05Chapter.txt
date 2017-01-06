@@ -424,7 +424,32 @@ hcat(const vector<string>& left, const vector<string>& right)
 
 ## Checklist 
 
- • To do later
+ • How do you overwrite a vector's values?
+ • How do you erase elements from a vector?
+    ◦ complexity?
+    ◦ What does erasing an element do to a vector?
+       ▸ Side effects? Impact on iterator objects?
+       ▸ What does an erase(iter) return? What is the return type?
+ • What is sequential access? What is random access?
+    ◦ What do vectors support well?
+    ◦ What type is good for sequential access? Is this general?
+ • What are iterators?
+    ◦ What are the two iterator types?
+    ◦ What are the major iterator operations?
+       ▸ On which iterators can you add an integer to?
+       ▸ Why does vec.end() denote one past the last element?
+          ▹ Instead of the last?
+       ▸ Why would we prefer to use iterators instead of indicies?
+          ▹ Hint: it is not time complexity
+    ◦ When you erase elements in a vector what happens to all the other iterators?
+    ◦ When should you be careful of loop guards?
+ • When is a vector a better choice than a list and vice versa? Why?
+    ◦ What does a list support that makes it worthwhile?
+    ◦ What does it not support well?
+    ◦ how do you sort a list?
+ • What is the substr method of <string>
+ • How can you easily append a vector to another vector
+ • 
 
 
 
