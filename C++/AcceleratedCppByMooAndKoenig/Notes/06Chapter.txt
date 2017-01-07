@@ -1,0 +1,469 @@
+06Chapter
+
+# Using library Algorithms
+
+ • Iterators are the bridge between the two worlds:
+    ◦ Algorithms act on iterators
+    ◦ Containers all define a consistent iterator for them
+ • <algorithm> header works for most of this
+
+## 6.1: Analyzing Strings
+
+### Intro
+
+ • Algorithmic way to append a vector to another vector
+    ◦ Vector provided way:
+       ▸ vec.insert(vec.end(), insv.begin(), insv.end());
+    ◦ Alg way:
+       ▸ copy(insv.begin(), insv.end(), back_inserter(vec));
+    ◦ These are *generic algorithms* 
+    ◦ The back_inserter is a *iterator adaptor*
+       ▸ These take containers and yield iterators to use
+       ▸ defined in <iterator>
+    ◦ copy:
+       ▸ copy takes the elements from the sequence from its first two args
+       ▸ and adds them starting at the third argument onward
+          ▹ it assumes the third argument has enough space
+          ▹ With back_inserter it copy means append
+    ◦ Dangerous mistakes:
+       ▸ Don't try copy (a.begin(), a.end(), b.end()); 
+       ▸ this fails
+       ▸ copy is designed to just copy elements overwriting some in a container
+          ▹ It is good we seperate the idea of appending elements or expanding
+          ▹ the container
+
+### Splitting
+
+
+ • Algorithms give a nicer way to split a string into words
+    ◦ We use iterators and algorithms:
+
+{{{c
+
+   // true if the argument is whitespace, false otherwise
+   bool space(char c)
+   {
+      return isspace(c);
+
+   }
+   // false if the argument is whitespace, true otherwise
+   bool not_space(char c)
+   {
+      return !isspace(c);
+
+   }
+   vector<string> split(const string& str)
+   {
+      typedef string::const_iterator iter;
+      vector<string> ret;
+      iter i = str.begin();
+      while (i != str.end()) {
+         // ignore leading blanks
+         i = find_if(i, str.end(), not_space);
+         // find end of next word
+         iter j = find_if(i, str.end(), space);
+         // copy the characters in [i, j)
+         if (i != str.end())
+            ret.push_back(string(i, j));
+         i = j;
+      }
+      return ret;
+   }
+
+
+  }}}
+
+ • New stuff
+    ◦ find_if takes two iterators and a predicate
+       ▸ It walks down the sequence and returns the first iterator that satisfies
+          ▹ the predicate
+          ▹ Otherwise, it returns the second argument
+       ▸ It needs the type of the third argument to be defined
+          ▹ *In general*, you can't pass an overloaded function to a template 
+             ▪ algorithm. It fails because it doesn't know which one to use.
+             ▪ To specify it for the compiler, we have helper functions above
+    ◦ string(i,j)
+       ▸ is a way to construct a copy of a string in the range [i, j)
+       ▸ where i and j are iterators
+    ◦ The rest is self explanatory
+
+
+
+### Palindromes
+
+Simple solution:
+
+{{{c
+   bool ispal(const string& s){
+      return equal(s.begin(), s.end(), s.rbegin());
+   }
+}}}
+
+ • New stuff
+    ◦ equal takes two sequences and test them for equal values
+    ◦ It assumes the second is of the length or more of the first
+    ◦ s.rbegin() is like a reverse iterator that starts pointing to the last element
+       ▸ and incrementing it moves backward
+    ◦ It does overshoot and do twice the work it needs to but that's fine
+
+
+
+
+### URLS
+
+ • We write a function to look through a large string and find url's
+    ◦ URL: uniform resource locator
+    ◦ Form: 
+       ▸ protocol-name:// resource-name
+          ▹ protocol-name is only letters 
+          ▹ resource-name takes only certain chars
+
+{{{c
+
+   vector<string> find_urls(const string& s)
+   {
+      vector<string> ret;
+      typedef string::const_iterator iter;
+      iter b = s.begin(), e = s.end();
+      // look through the entire input
+      while (b != e) {
+         // look for one or more letters followed by :// followed by a valid char
+         b = url_beg(b, e);
+         // if we found it
+         if (b != e) {
+            // get the rest of the URL
+            iter after = url_end(b, e);
+            // remember the URL
+            ret.push_back(string(b, after));
+            // advance b and check for more URLs on this line
+            b = after;
+
+         }
+
+      }
+      return ret;
+
+   }
+
+  }}}
+
+ • url_beg does most of the heavy lifting. The rest is given.
+ • url_end:
+
+
+{{{c
+
+string::const_iterator url_end(string::const_iterator b, 
+      string::const_iterator e){
+   return find_if(b,e,not_url_char);
+   // We return the first non-url char after :// 
+   // if none exist then we return e
+}
+
+bool not_url_char(char c){
+   static const string url_ch = "~;/?:@=&$-_.+!*'(),";
+   return !(isalnum(c) || 
+      find(url_ch.begin(), url_ch.end(), c) != url_ch.end());
+   // return it is not a normal character
+}
+
+
+}}}
+
+ • find takes two iterators (a sequence) and an element
+    ◦ It is equivalent to find_if(b,e, ==c) so to speak
+ • static means we initialize url_ch only the first time the function is called
+    ◦ this is a little optimization
+ • The really hard part is url_beg
+    ◦ We just search for <alnum-protocol name_>:// <validchar>
+    ◦ Ideally we would have a database of protocol names
+ • Algorithm
+       ▸ We search for the seperator :// in what is remaining
+             ▪ If we get the end it is not there
+          ▹ If we have the seperator
+             ▪ We check if it is at the start or end and if so increment past it
+             ▪ Otherwise
+                ▫ We keep decrementing backward until we reach the start
+                   • or find a character before which the one is not alnumeric
+                ▫ If we have decremented at least one, we return it
+                ▫ Otherwise
+                   • We increment past that seperator
+
+
+{{{c
+
+   string::const_iterator
+      url_beg(string::const_iterator b, string::const_iterator e)
+      {
+         static const string sep = "://";
+         typedef string::const_iterator iter;// i marks where the separator was found
+         iter i = b;
+         while ((i = search(i, e, sep.begin(), sep.end())) != e) {
+            // make sure the separator isn't at the beginning or end of the line
+            if (i != b && i + sep.size() != e) {
+               // beg marks the beginning of the protocol-name
+               iter beg = i;
+               while (beg != b && isalpha(beg[-1]))
+                  --beg;
+               // is there at least one appropriate character before and after the separato
+               if (beg != i && !not_url_char(i[sep.size()]))
+                  return beg;
+
+            }
+            // the separator we found wasn't part of a URL advance i past this separator
+            i += sep.size();
+
+         }
+         return e;
+
+      }
+
+}}}
+
+ • New stuff
+    ◦ The search algorithm takes 4 iterators defined 2 sequences
+       ▸ It searches for the second sequence in the first and returns
+       ▸ the end of the first if it can't find it
+    ◦ We can index iterators of containers that support indexing
+       ▸ Recall beg[-1] is *(beg - 1) which makes sense
+    ◦ The rest is easy
+
+
+
+## 6.2: Comparing Grading Policies
+
+ • The code will be in the matching dir with profuse comments
+    ◦ Here, we just go over the important new stuff
+ 
+
+ • Find(b,e, t) 
+    ◦ linear searches the sequence for things that match t
+    ◦ returns e if nothing matches
+ • tranform(b, e, out, modify)
+    ◦ Walks through sequence applying modify function and adding it to iter out
+    ◦ again: no overloaded functions
+    ◦ Also: be sure that all the elements of the sequence meet the precond
+       ▸ of modify
+       ▸ otherwise, errors will not be handled 
+ • accumulate
+    ◦ this is in <numeric>
+    ◦ The type of the third input is critical
+    ◦ accumulate(b,e, t)
+       ▸ it creates a total sum of elements of the sequence of type typeof(t)
+       ▸ with sum's initial value being t
+       ▸ hence, typeof(t) critical
+ • remove_copy
+    ◦ Memorize: *to remove is to NOT copy*
+    ◦ remove_copy(b, e, place, t) "removes" all the elements that equal t
+       ▸ So, it copies all the elements not equal to t into interator place
+          ▹ It assumes, like transform, that place has enough space
+
+
+
+
+## 6.3: Seperating Failing Students: Algorithmic Approach
+
+ • Again, only the core ideas. The code is sufficiently commented.
+
+
+ • remove_copy_if
+    ◦ It removes elements that satisfy the predicate. 
+    ◦ Again, to remove is not to copy
+    ◦ remove_copy_if(b, e, out, predicate)
+       ▸ copies elements that fail the predicate into out
+       ▸ be sure predicate works on all of the sequence 
+ • remove_if
+    ◦ remove_if(b, e, predicate)
+    ◦ It walks through the sequence 
+       ▸ it treats things that satisfy the predicate as empty space
+       ▸ it copies things that FAIL the predicate and moves them to the start
+          ▹ note: it does not swap or anything.
+          ▹ The vector can end up with a lot of duplicate elements
+          ▹ In the end, the front part of the vector is all elements
+             ▪ that FAILED the predicate and the back part is junk
+       ▸ returns an iterator to the start of the junk or, one past the end of
+          ▹ the front part
+ • erase in a vector
+    ◦ v.erase(s,e) erases that portion of the vector
+ • stable_partition and partition
+    ◦ It takes a sequence an rearranges it so that things that satisfy a 
+       ▸ predicate preceede the others 
+    ◦ partition(b, e, predicate)
+       ▸ returns the pointer to one past the first chunk that satisfy the predicate
+    ◦ stable_partiton maintains their relative order
+       ▸ For example: with the students, if they were alphabetized, 
+       ▸ after the partition it would still keep the alphabetization
+       ▸ in each partition
+
+
+
+## 6.4: Algorithms, containers, and iterators
+
+ • Critical point: *algorithms act on container elems not on containers*
+    ◦ sort, remove_if and remove do not change fundamental container properties
+       ▸ the size of container is not changed
+    ◦ only vec.erase removes elements from the vector
+ • Algorithms act with iterators
+    ◦ It it important to be aware of how changing iterators can ruin algorithms
+    ◦ Also, algorithms can change iterators: remove_if messes up your iterators
+
+
+## Details
+
+ • Type modifiers:
+    ◦ static type variable;
+
+
+For local declarations, declares variable with static storage class. The value of
+variable persists across executions of this scope and is guaranteed to be initialized
+before the variable is used for the first time. When the program exits from the scope,
+the variable keeps its value until the next time the program enters that scope. We'll
+see in §13.4/244 that the meaning of static varies with context.
+
+Types: The built-in type void can be used in a restricted number of ways, one of which
+is to indicate that a function yields no return value. Such functions can be exited
+through a return ; that has no value or by falling off the end of the function.
+Iterator adaptors are functions that yield iterators. The most common are the adaptors
+that generate insert_iterators , which are iterators that grow the associated
+container dynamically. Such iterators can be used safely as the destination of a copying
+algorithm. They are defined in header <iterator> :
+
+ • back_inserter(c)
+
+
+Yields an iterator on the container c that appends elements to c . The container must
+support push_back , which the list, vector , and the string types all do.
+
+ • front_inserter(c)
+
+
+Like back_inserter , but inserts at the front of the container. The container must
+support push_front , which list does, but string and vector do not.
+
+ • inserter(c, it)
+
+
+Like back_inserter , but inserts elements before the iterator it .
+
+
+Algorithms: Unless otherwise indicated, <algorithm> defines these algorithms:
+ • accumulate(b, e, t)
+
+
+Creates a local variable and initializes it to a copy of t (with the same type as t , which
+means that the type of t is crucially important to the behavior of accumulate ), adds
+each element in the range [b, e) to the variable, and returns a copy of the variable
+as its result. Defined in <numeric> .
+
+ • find(b, e, t)
+ • find_if(b, e, p)
+ • search(b, e, b2, e2)
+
+
+Algorithms to look for a given value in the sequence [b, e) . The find algorithm
+looks for the value t ; the find_if algorithm tests each element against the predicate
+p ; the search algorithm looks for the sequence denoted by [b2, e2) .
+
+ • copy(b, e, d)
+ • remove_copy(b, e, d, t)
+ • remove_copy_if(b, e, d, p)
+
+
+Algorithms to copy the sequence from [b, e) to the destination denoted by d . The
+copy algorithm copies the entire sequence; remove_copy copies all elements not
+equal to t ; and remove_copy_if copies all elements for which the predicate p fails.
+
+ • remove_if(b, e, p)
+
+
+Arranges the container so that the elements in the range [b, e) for which the
+predicate p is false are at the front of the range. Returns an iterator denoting one past
+the range of these "unremoved" elements.
+
+ • remove(b, e, t)
+
+
+Like remove_if , but tests which elements to keep against the value t .
+
+ • transform(b, e, d, f)
+
+Runs the function f on the elements in the range [b, e) , storing the result of f in d .
+
+ •  partition(b, e, p)
+ •  stable_partition(b, e, p)
+
+
+Partitions the elements in the range [b, e) , based on the predicate p , so that
+elements for which the predicate is true are at the front of the container. Returns an
+iterator to the first element for which the predicate is false , or e if the predicate is
+true for all elements. The stable_partition function maintains the input order
+among the elements in each partition.
+
+
+
+## Checklist
+
+ • Do you know the entire details section
+ • Do you know how to append elements to a vector with copy
+    ◦ what headers do you need?
+ • What header is accumulate in?
+    ◦ What is important to be aware of with accumulate?
+ • What is the pitfall of using transform?
+    ◦ What must you ensure about the function?
+    ◦ (precondition and type-clarity if it is overloaded)
+ • What is the general pitfall of using an algorithm with a predicate?
+ • What are all the forms of the following?
+    ◦ copy
+    ◦ remove 
+    ◦ search (only one)
+    ◦ find (only one)
+    ◦ transform (only one)
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
