@@ -1,23 +1,36 @@
 
 
-
-
 body{
-	background-color: #6CDAE7;
 	text-align: center;
 }
 
-title {
-	text-align: center;
+#stuff {
+	margin-left: auto;
+	margin-right:auto;
+	width: 750px;
 }
 
 
-#main{
+#page {
+	background: #33CC99;
 	margin-left: auto;
 	margin-right: auto;
 	text-align: left;
-	width: 400;
+	width: 800px;
+	height: 800px;
 }
 
 
+.bigHr {
+	background-color: black !important;
+	height: 8px !important;
+	border: solid 0px !important;
+}
+
+hr {
+	background-color: black !important;
+	height: 5px; !important;
+	border: solid 0px !important;
+	
+}
 

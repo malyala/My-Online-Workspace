@@ -4,6 +4,8 @@
 		<style>
 		background-color: pink;
 		</style>
+	</head>
+	<body>
 		<div class="centered-content">
 			<h1 style="text-align:center;"> Welcome to Waitlist Exchange!</h1>
 			<hr></hr>
