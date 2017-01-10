@@ -1,5 +1,5 @@
 #My Online Workspace
-This is my repository for all personal projects and general coding done online.
+This is my repository for all personal projects and general coding done online. If you want more of me, you can see my [website](http://divesh-otwani.github.io/My-Online-Workspace/) which is hosted on the hg-pages branch of this repository.
 If I want to work on a very large project, I'll make a seperate repository.
 Most of my coding is in C and Python so those folders are the most populated.
 
