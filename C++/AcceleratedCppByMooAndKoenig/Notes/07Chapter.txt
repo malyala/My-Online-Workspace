@@ -1,0 +1,86 @@
+07Chapter
+
+# Associative Containers
+  We cover map and pair but not sets. All the code is well commented.
+  We just cover the new stuff and observations.
+
+ • Maps hold pairs (defined in <map>)
+    ◦ pairs are a collection of two type instances
+       ▸ pair<int int> for example
+       ▸ You get at the elements with the .first and .second attributes
+          ▹ these are NOT get functions, but just member data elements
+    ◦ The key type is const. So, map<T, S> holds
+       ▸ pair<const T, S> elements
+    ◦ An iterator on a map returns these pairs
+    ◦ Assignment
+       ▸ m[k] = t;
+       ▸ If there is no element with key k, a pair is *value initialized* 
+          ▹ for simple types like int, it is value initialized to zero
+    ◦ Definition
+       ▸ be careful: map<char, vector<int> > 
+          ▹ need the space so we don't write >> 
+    ◦ For complex maps like
+       ▸ map<string, vector< vector<string> > >
+          ▹ typedef along the way to make it readable
+
+ • Misc
+    ◦ Functions can have default arguments
+       ▸ Just use = like in python
+    ◦ <stdlib> has rand() which returns a random int between [0, RAND_MAX]
+       ▸ each implementation has a different RAND_MAX
+ • Note on performance
+    ◦ This is not the best possible stuff
+       ▸ hash tables with really good hash functions are ideal
+       ▸ We don't do that for 
+          ▹ simplicity: easier than making hash functions
+          ▹ more convenient: automatic ordering for traversal
+             ▪ hash tables may be tricky to traverse
+
+# Details
+
+ • Value Initialization
+    ◦ Accessing a map element that DNE value initializes it to v() for 
+       ▸ map<T v>
+    ◦ We explain this in detail later. For now, know built in types like int are 0
+ • rand()
+    ◦ defined in <cstdlib>
+    ◦ returns a random in [0, RAND_MAX] with RAND_MAX depending on the implementation
+ • pair<K, V>
+    ◦ is simple enough
+    ◦ has members .first and .second for the elements
+ • map<K, V>
+    ◦ Is an associative array with key type K and value type V. 
+    ◦ The elems are pair<const K, V> 
+    ◦ The iterators of a map are bidirectional
+    ◦ Dereferencing an iterator yields a pair<const K, V> type
+    ◦ Operations
+       ▸ map<K, V> m;
+       ▸ map<K, V> m(cmp);
+          ▹ cmp is a function that compares keys to order elements in map
+       ▸ m[k]
+          ▹ Find the value for key k
+          ▹ Can *default initialize* if k not already in the map
+          ▹ This is not allowed on a const map
+       ▸ m.begin()
+       ▸ m.end()
+       ▸ m.find(k)
+          ▹ All three return iterators.
+          ▹ Find returns the iterator referring to the pair with key k
+       ▸ For easy iterator access, for iterator p in map<K, V>
+          ▹ p→first is the lvalue const K
+          ▹ p→second is the lvalue type V
+
+# Checklist
+
+ • What happens if you do mapEX[k] for a key k not in the map?
+    ◦ What value initialization happens for vectors?
+       ▸ For built in types like int or float or double?
+ • What do map iterator return when dereferenced? 
+ • What is m.find(k) returning?
+ • What is the type of elements stored in map<T S> ?
+ • Can I change the key of an element?
+ • What is a pair? 
+
+
+
+
