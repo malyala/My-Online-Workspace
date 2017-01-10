@@ -2,6 +2,7 @@
 
 body{
 	text-align: center;
+	background-color:#000000;
 }
 
 #stuff {
@@ -12,7 +13,7 @@ body{
 
 
 #page {
-	background: #33CC99;
+	background: #6CDAE7;
 	margin-left: auto;
 	margin-right: auto;
 	text-align: left;
