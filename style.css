@@ -1,9 +1,17 @@
 
 
+
+
 body{
 	background-color: lightblue;
 	text-align: center;
 }
+
+title {
+	color: green;
+	text-align: center;
+}
+
 
 #main{
 	margin-left: auto;
