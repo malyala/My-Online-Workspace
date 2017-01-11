@@ -5,45 +5,44 @@
 		<title>Divesh Otwani</title>
 	</head>
 	<body>
+		
+		
+		
+		<div class="content">
 		<div id="page">
-			<div id="stuff">
-				<h1><br><center>Divesh Otwani</center></h1>
-				<center>
-					<table rowspan=auto align=center cellpadding=30pt>
-						<tr>
-							<td>
-								
-							Email: <a href="https://mail.google.com/mail/?view=cm&fs=1&tf=1&to=dotwani@haverford.edu" target="_blank">dotwani@haverford.edu</a>
-							</td>
-							<td>
-							Github: <a href="https://github.com/Divesh-Otwani/My-Online-Workspace" target="_blank">
-							Divesh-Otwani@github
-							</a>
-							</td>
 
-						</tr>
-					</table>
+			<div id="stuff" >
+				<h1><br><center>Divesh Otwani</center></h1>
+				
+				<center>
+
+
+							Email: <a href="https://mail.google.com/mail/?view=cm&fs=1&tf=1&to=dotwani@haverford.edu" target="_blank">
+							dotwani@haverford.edu
+							</a>
+							
+							Github:<a href="https://github.com/Divesh-Otwani/My-Online-Workspace" target="_blank">
+							Main Repository
+							</a>
+
+							<a href="DiveshOtwaniResume.pdf" target="_blank" >
+							Resume
+							</a>							
+			
 				</center>
 				
 				<hr class="bigHr">
 				<p> 
-				Hi there! You've reached Divesh's website. I hope you enjoy your stay. (The mints are complementary. Tip generously. The bad jokes are also complementary.)
+				Hi there! You've reached Divesh's website. I hope you enjoy your stay. 
+				The mints are on the house. Tip generously. 
+				The bad jokes are complimentary.
 				</p>
-				<center> 
-		 			<img src="point.jpg" height=300px width=auto>
-				</center>
+
 				<h3> Contacts</h3>
 				<hr>
-				<p>
-								<br>
-
-
-
-				
-
-
-
-				</p>
+			
+			
+				</div>
 			</div>
 		</div>
 	</body>
