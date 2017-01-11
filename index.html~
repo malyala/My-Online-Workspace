@@ -27,7 +27,7 @@
 							Github
 							</a>
 </li>
-<li>
+<li id="case1">
 														
 							<a href="DiveshOtwaniResume.pdf" target="_blank" >
 							Resume
@@ -45,6 +45,10 @@
 				<h3> Contacts</h3>
 				<hr>
 			
+			
+				<footer>
+  						<p> Contact information: dotwani@haverford.edu or divesh.otwani@gmail.com </p>
+				</footer>			
 			
 				</div>
 			</div>

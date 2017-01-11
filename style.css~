@@ -1,32 +1,13 @@
-
 /*
 ul {
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
-    overflow: hidden;
-    
-}
-
-li {
-    float: left;
-    text-align: center;
-}
-
-li a {
-    display: block;
-    color: black;
-    text-decoration: underline !important;
-    text-align: center !important;
-    padding: 10px 10px !important;
-
+  display: flex;
+  justify-content:space-between;
+  list-style-type: none;
 }
 */
 
-
 #toplinks {
     text-align: center;
-    text-indent: 0 !important;
 
 }
 #toplinks:after {
@@ -34,7 +15,6 @@ li a {
     width: 100%;
 }
 #toplinks li {
-	text-indent: 0;
     display: inline-block;
     padding-left: 10px;
     padding-right: 10px;
@@ -46,38 +26,24 @@ li a {
 
 
 
-
-/*
-​
-#toplinks {
-    display: inline-block;
+footer {
+    background-color: black;
+    text-align: center;
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    height: 150px;
     width: 100%;
-    text-align: center;
+    overflow:hidden;
 }
 
-#toplinks li {
-    display: inline-block;
-    text-align: center;
-    white-space: nowrap;
-}​
 
-@media () {
-    #toplinks li {
-    	text-align: center;
-        display: block;
-        width: 100%;
-    }
+html {
+	position: relative;
+	min-height: 100%;
+
 }
 
-*/
-
-/*
-ul {
-  display: flex;
-  justify-content:space-between;
-  list-style-type: none;
-}
-*/
 
 body{
 	text-align: center;
