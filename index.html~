@@ -51,7 +51,7 @@
 
 				<h3>About Me</h3>
 				<p>
-				I am a Sophomore at <a href="www.haverford.edu" >Haverford College</a>. I am going to major in Computer Science and Mathematics. My resume and github page are linked to above.
+				I am a Sophomore at <a href="http://www.haverford.edu" target="_blank" >Haverford College</a>. I am going to major in Computer Science and Mathematics. My resume and github page are linked to above.
 				You can probably guess that I like Computer Science and Mathematics. I also enjoy chess, reading fiction (short stories especially), martial arts (I've studied Tae-Kwan-Do), 
 				reading and writing poetry and a bunch of other stuff that I don't feel like listing. In terms of programming, I am fond of C, C++ and am intrigued by functional programming languages.
 				Hence, I am looking into scheme and clojure while I am learning and coding with C++, C and Rust (I've only seen tutorials of Rust but it looks sublime).
@@ -96,7 +96,7 @@
 				<ul>
 				<li>
 				One of the things I am fiercely passionate about is education. I am highly critical of educational institutions and educational methodologies and philosophies. 
-				With one of my close friends, I made this awesome website called <a href="https://sites.google.com/site/torchlightwwp/" >Torchlight</a> to remedy a major problem I saw at my school:
+				With one of my close friends, I made this awesome website called <a href="https://sites.google.com/site/torchlightwwp/" target="_blank">Torchlight</a> to remedy a major problem I saw at my school:
 				unequal distribution of information about the college system leading to inequality in opportunity. As for it's success, since my friend and I have been busy with college, we have been
 				unable to push it forward and spread it out. For now, only small circles in our high school are aware of the website. 
 				</li>
