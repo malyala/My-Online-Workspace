@@ -6,30 +6,34 @@
 	</head>
 	<body>
 		
-		
-		
-		<div class="content">
+	
 		<div id="page">
 
 			<div id="stuff" >
 				<h1><br><center>Divesh Otwani</center></h1>
 				
-				<center>
+				
+							<ul id="toplinks">
 
-
-							Email: <a href="https://mail.google.com/mail/?view=cm&fs=1&tf=1&to=dotwani@haverford.edu" target="_blank">
-							dotwani@haverford.edu
+<li>
+							<a href="https://mail.google.com/mail/?view=cm&fs=1&tf=1&to=dotwani@haverford.edu" target="_blank">
+							Email
 							</a>
+
+</li>
+<li>
 							
-							Github:<a href="https://github.com/Divesh-Otwani/My-Online-Workspace" target="_blank">
-							Main Repository
+							<a href="https://github.com/Divesh-Otwani/My-Online-Workspace" target="_blank">
+							Github
 							</a>
-
+</li>
+<li>
+														
 							<a href="DiveshOtwaniResume.pdf" target="_blank" >
 							Resume
 							</a>							
-			
-				</center>
+</li>
+							</ul>
 				
 				<hr class="bigHr">
 				<p> 
@@ -44,7 +48,6 @@
 			
 				</div>
 			</div>
-		</div>
 	</body>
 </html>
 

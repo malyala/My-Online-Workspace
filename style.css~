@@ -1,6 +1,83 @@
 
+/*
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    
+}
+
+li {
+    float: left;
+    text-align: center;
+}
+
+li a {
+    display: block;
+    color: black;
+    text-decoration: underline !important;
+    text-align: center !important;
+    padding: 10px 10px !important;
+
+}
+*/
 
 
+#toplinks {
+    text-align: center;
+    text-indent: 0 !important;
+
+}
+#toplinks:after {
+    display: inline-block;
+    width: 100%;
+}
+#toplinks li {
+	text-indent: 0;
+    display: inline-block;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+#case1 {
+	padding-right: 55px !important;
+}
+
+
+
+
+/*
+​
+#toplinks {
+    display: inline-block;
+    width: 100%;
+    text-align: center;
+}
+
+#toplinks li {
+    display: inline-block;
+    text-align: center;
+    white-space: nowrap;
+}​
+
+@media () {
+    #toplinks li {
+    	text-align: center;
+        display: block;
+        width: 100%;
+    }
+}
+
+*/
+
+/*
+ul {
+  display: flex;
+  justify-content:space-between;
+  list-style-type: none;
+}
+*/
 
 body{
 	text-align: center;
@@ -10,8 +87,8 @@ body{
 	background-attachment: fixed;
 	background-size: cover;
 	background-position: center;
-	min-height: 1500px;
-	min-width: 900px;	
+	min-height: 1800px;
+
 	/*background-color:#000000;*/
 }
 
@@ -25,7 +102,7 @@ body{
 /* This is everything, stuff is an inner container for a nice margin
 This is centered... Keep it that way*/
 #page {
-   background: rgba(255, 255, 255, .6);
+   background: rgba(255, 255, 255, .75);
    
 	margin-left: auto;
 	margin-right: auto;
