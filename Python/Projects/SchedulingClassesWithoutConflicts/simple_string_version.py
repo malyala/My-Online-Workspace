@@ -177,8 +177,10 @@ class Schedule:
 
     def __str__(self):
         ret = ""
+        i = 0
         for course in self.courses:
-            ret += course.__str__() + "\n" 
+            ret += "index: "+ str(i)+ " " + course.__str__() + "\n"
+            i += 1
         return ret
 
     def save(self, path):
