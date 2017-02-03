@@ -9,8 +9,7 @@ void swap(void *a,void *b, size_t size){
     temp = (char *) malloc(size);
     memcpy(temp, a, size);
     memcpy(a, b, size);
-    memcpy(b, temp, size);
-	free(temp);
+    memcpy(b, temp, free(temp);
 }
 /* TESTING
 
