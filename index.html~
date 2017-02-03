@@ -92,9 +92,9 @@
                 I have a few Hackathon projects that can be found on my resume. However, I did not take major roles in those projects. 
                 I do have, however a few small to medium sized projects on my github: 
 					<ul>
-					<li> I've made a repl for the simple programming language <a href="https://en.wikipedia.org/wiki/Brainfuck" target="_blank" > BrainF</a> in C</li>
-					<li> I have implemented some generic data structures in C including binary search trees, heaps and hash tables.</li>
-					<li> In python, I have implemented
+					<li> I've made a repl for the simple programming language <a href="https://en.wikipedia.org/wiki/Brainfuck" target="_blank" > BrainF</a> in C. Link <a href="https://github.com/Divesh-Otwani/My-Online-Workspace/tree/master/C/Projects/BrainF_REPL" target="_blank" >here</a>.</li>
+					<li> I have implemented some generic data structures in C including binary search trees, heaps and hash tables. Link <a href="https://github.com/Divesh-Otwani/My-Online-Workspace/tree/master/C/Data_Structures" target="_blank" >here</a>.</li>
+					<li> In python, I have implemented the following. To find it, go to /Python/Projects on my github.
 						<ul>
 						<li>the game hangman</li>
 						<li>a tool to help college students schedule classes</li>
