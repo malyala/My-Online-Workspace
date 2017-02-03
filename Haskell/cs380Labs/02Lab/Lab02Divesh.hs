@@ -11,7 +11,7 @@
 
 {- OPTIONS -Wall -Wno-type-defaults #-}
 
-module Lab02 where
+module Lab02Divesh where
 
 -- The "Prelude" is the module automatically imported into all Haskell
 -- programs. But we'll be redefining some Prelude functions in this file,
