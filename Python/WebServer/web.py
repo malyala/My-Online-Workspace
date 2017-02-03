@@ -1,3 +1,9 @@
+"""
+This is a simple we server copied from somewhere online.
+I've used it mainly to mess around with and practice "learn by doing".
+
+"""
+
 import sys
 import BaseHTTPServer
 from SimpleHTTPServer import SimpleHTTPRequestHandler
