@@ -60,6 +60,7 @@ int main(){
     int next;
     for(int i =0; i< numlines; ++i){
         int altitude = 0,count = 0;
+        cin >> first; // discard the first line number
         cin >> first;
         for(int j = 1; j < 15; ++j){
             cin >> next;
