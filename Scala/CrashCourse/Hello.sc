@@ -1,6 +1,6 @@
 
 
-object Main extends App{
+object Hello extends App{
     println("Hello world");
 }
 
