@@ -9,7 +9,7 @@ module Peano where
 data Nat where
   Zero :: Nat
   Succ :: Nat -> Nat
-
+  deriving (Show)
 -- GHCi should print Nats just like ordinary numbers
 --instance Show Nat where
 --  show = show . fromNat  -- NB: This is *not* recursive (why?)
@@ -38,13 +38,11 @@ mult Zero     _ = Zero
 mult (Succ n) m = plus m (mult n m)
 
 
-
-
 minus :: Nat -> Nat -> Nat
 minus Zero     Zero     = Zero
 minus Zero     _        = error "Subtracting too far"
 minus x        Zero     = x
-minux (Succ x) (Succ y) = minus x y 
+minus (Succ x) (Succ y) = minus x y 
 
 
 equal :: Nat -> Nat -> Bool
