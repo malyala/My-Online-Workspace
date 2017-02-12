@@ -1,10 +1,3 @@
-README for package tradingCircles
-
-Instructions:
-
-You must include a design document, along with your code, in which you describe the overall software architecture, discussing what count as objects in your system, and, for each, what methods are needed, what data fields are needed, and what (if anything) is the appropriate superclass or interface class? Note that objects may correspond to concrete things like trucks or bridges, or more abstract things like a bank account or a visit to a bank; data fields may correspond to innate properties, like the weight of a truck, or to association, like the driver of a truck (English also uses possessive words like "has" for both of these, e.g. I have a right arm, and I have a home state, though my relationship to those two entities is somewhat different). In contrast, a superclass (or interface class) describes the way we classify objects, where one might use the word "is" rather than "has" (e.g. I have a right arm, but I am a person, so I also am a mammal, which means you know I have a temperature-regulation method, which a reptile would typically lack). Feel free to discuss questions of design with your professor or T.A. or other students, if you don't feel confident in your object-oriented-design skills from earlier classes.
-
-
 # Documentation
 
 ## Overall
