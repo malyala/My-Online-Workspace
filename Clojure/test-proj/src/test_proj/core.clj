@@ -1,3 +1,10 @@
+(ns test-proj.core)
+
+(defn foo
+  "I don't do a whole lot."
+  [x]
+  (println x "Hello, World!"))
+
 ; Comments start with semicolons.
 
 ; Clojure is written in "forms", which are just
