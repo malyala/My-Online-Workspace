@@ -40,10 +40,6 @@ class Calculator(name: String) extends Identify { //could extend
 }
 
 
-    
-
-
-
 
 
 
@@ -78,9 +74,6 @@ object Learning {
 
 
 }
-
-
-
 
 
 

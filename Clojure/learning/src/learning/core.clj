@@ -24,4 +24,30 @@
                                     (conj a b))) '() %))
 
 
+;; exercises: implement map using reduce, then filter
+
+(defn my-map
+  "implementing map with reduce"
+  [f xs]
+  (reduce (fn [seq-so-far item]
+            (cons (f item) seq-so-far))
+          (list)
+          (seq xs)))
+
+
+(defn my-filter
+  "implementing map with reduce"
+  [f xs]
+  (reduce (fn [seq-so-far item]
+            (if (f item)
+              (cons item seq-so-far)
+              seq-so-far))
+          (list)
+          (seq xs)))
+
+
+
+
+
+
 
