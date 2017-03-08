@@ -95,6 +95,7 @@ maybeToList :: Maybe a -> [a]
 maybeToList Nothing  = []
 maybeToList (Just x) = [x]
 
+
 concatMap :: (a -> [b]) -> [a] -> [b]
 concatMap f = concat . map f
 
