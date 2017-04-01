@@ -32,7 +32,7 @@ int BSTinsert(BST *tree, void *key, void *val){
 	if(ToAdd == NULL){
 		return 0;
 	}
-	ToAdd->key = key;	
+	ToAdd->key = key;
 	ToAdd->val = val;
 	ToAdd->left = NULL;
 	ToAdd->right = NULL;

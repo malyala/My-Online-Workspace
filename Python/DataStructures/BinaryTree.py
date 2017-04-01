@@ -15,8 +15,8 @@ class BinaryTree:
         self.right = btree
     def SetValue(self, value):
         self.value = value
-    
-    #accessors
+
+#accessors
     def GetVal(self):
         return self.value
     def GetLeft(self):
@@ -40,7 +40,6 @@ class BinaryTree:
                    self.GetRight() == other.GetRight()
             #Recall, None==None is True
 
-    
 
 
 
